@@ -268,7 +268,7 @@ def posts(view: str = "leads", service: str = ""):
     if _svc(service):
         where, args = where + " AND service=?", (service,)
     with db() as con:
-        return [_post(r) for r in con.execute(f"SELECT * FROM posts WHERE {where} ORDER BY score DESC, posted_at DESC LIMIT 200", args)]
+        return [_post(r) for r in con.execute(f"SELECT * FROM posts WHERE {where} ORDER BY score DESC NULLS LAST, posted_at DESC LIMIT 200", args)]
 
 
 def _get_post(pid):

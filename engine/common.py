@@ -11,6 +11,19 @@ import yaml
 
 SYSTEM = Path(__file__).resolve().parent.parent
 DB_PATH = Path(os.environ.get("CLOSAR_DB") or SYSTEM / "data" / "closar.db")   # CLOSAR_DB: test on a copy
+
+
+def _online_settings():
+    """online.yaml (never committed) holds the Supabase connection string: pg_url: postgresql://..."""
+    f = SYSTEM / "online.yaml"
+    try:
+        return (yaml.safe_load(f.read_text(encoding="utf-8")) or {}) if f.exists() else {}
+    except yaml.YAMLError:
+        return {}
+
+
+# Supabase (Postgres) when online.yaml has pg_url, the local SQLite file otherwise. CLOSAR_DB forces SQLite (tests).
+PG_URL = None if os.environ.get("CLOSAR_DB") else (os.environ.get("CLOSAR_PG_URL") or _online_settings().get("pg_url"))
 LOG_PATH = SYSTEM / "data" / "closar.log"
 PROMPTS = SYSTEM / "prompts"
 
@@ -144,8 +157,100 @@ def _migrate(con):
     con.commit()
 
 
+def _pg_sql(sql):
+    """SQLite-style ? placeholders -> psycopg %s (a literal % becomes %%). Quoted text is left alone."""
+    out, quote = [], None
+    for ch in sql:
+        if quote:
+            out.append("%%" if ch == "%" else ch)
+            if ch == quote:
+                quote = None
+        elif ch in ("'", '"'):
+            quote = ch
+            out.append(ch)
+        elif ch == "?":
+            out.append("%s")
+        elif ch == "%":
+            out.append("%%")
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
+class _PgRow(dict):
+    """Acts like sqlite3.Row: row["name"], row[0] and dict(row) all work."""
+    def __getitem__(self, k):
+        if isinstance(k, int):
+            return list(self.values())[k]
+        return super().__getitem__(k)
+
+
+class _PgCursor:
+    def __init__(self, cur):
+        self._cur = cur
+        self.rowcount = cur.rowcount
+
+    def _wrap(self, r):
+        return None if r is None else _PgRow(zip([d.name for d in self._cur.description], r))
+
+    def fetchone(self):
+        return self._wrap(self._cur.fetchone()) if self._cur.description else None
+
+    def fetchall(self):
+        return [self._wrap(r) for r in self._cur.fetchall()] if self._cur.description else []
+
+    def __iter__(self):
+        return iter(self.fetchall())
+
+
+class _PgCon:
+    """Same use as a sqlite3 connection: `with db() as con: con.execute(sql, args)`; commits on a clean exit."""
+    def __init__(self, pool):
+        self._pool = pool
+        self._con = pool.getconn()
+
+    def execute(self, sql, args=()):
+        cur = self._con.cursor()
+        cur.execute(_pg_sql(sql), tuple(args))
+        return _PgCursor(cur)
+
+    def commit(self):
+        self._con.commit()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, *_):
+        try:
+            self._con.rollback() if exc_type else self._con.commit()
+        finally:
+            self._pool.putconn(self._con)
+        return False
+
+
+_pg_pool = None
+
+
+def _pool():
+    global _pg_pool
+    if _pg_pool is None:
+        with _lock:
+            if _pg_pool is None:
+                from psycopg_pool import ConnectionPool
+                _pg_pool = ConnectionPool(PG_URL, min_size=1, max_size=8, open=True,
+                                          kwargs={"prepare_threshold": None, "connect_timeout": 20})
+    return _pg_pool
+
+
+def local_day_start_utc():
+    """Midnight today (laptop time) as a UTC timestamp string, same format as now(): for 'today' counts."""
+    return dt.datetime.combine(dt.date.today(), dt.time()).astimezone(dt.timezone.utc).isoformat()
+
+
 def db():
     global _migrated
+    if PG_URL:   # tables are made once by supabase/schema.sql
+        return _PgCon(_pool())
     con = sqlite3.connect(DB_PATH, timeout=30)
     con.row_factory = sqlite3.Row
     if not _migrated:
@@ -158,7 +263,7 @@ def db():
 
 def set_state(k, v):
     with db() as con:
-        con.execute("INSERT OR REPLACE INTO state VALUES (?,?)", (k, v))
+        con.execute("INSERT INTO state (k, v) VALUES (?,?) ON CONFLICT (k) DO UPDATE SET v=excluded.v", (k, v))
 
 
 def get_state(k, default=None):

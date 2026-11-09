@@ -325,6 +325,12 @@ details.area summary .c.on{color:var(--accent)}
 <aside class="sheet" id="sheet" aria-label="Lead" aria-hidden="true"><div class="sheet-h" id="sheet-h"></div><div class="sheet-b" id="sheet-b"></div></aside>
 <div class="toast" id="toast" role="status"></div>
 
+<script>/* opened anywhere but this laptop: load the online edition (Supabase) before the studio code runs */
+if (!["127.0.0.1", "localhost", "::1", "[::1]"].includes(location.hostname)) document.write(
+  '<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"><\/script>' +
+  '<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"><\/script>' +
+  '<script src="online.js"><\/script>');
+</script>
 <script>
 const API = "/studio/api";
 const $ = (s, el = document) => el.querySelector(s);
@@ -334,6 +340,7 @@ let AREAS = null, STATE = null, CUR = null;
 const ui = {view: "today", stage: "cold", svc: "", q: "", pview: "leads", psvc: "", akind: ""};
 
 async function call(path, opts = {}) {
+  if (window.CLOSAR_ONLINE) return Online.call(path, opts);
   const r = await fetch(API + path, {headers: {"Content-Type": "application/json"}, ...opts,
     body: opts.body ? JSON.stringify(opts.body) : undefined, method: opts.method || (opts.body ? "POST" : "GET")});
   if (!r.ok) { let m = r.statusText; try { m = (await r.json()).detail || m } catch {} throw new Error(m) }
@@ -362,7 +369,7 @@ function go(v) {
   $$("nav.menu button").forEach(b => b.setAttribute("aria-current", b.dataset.view === v ? "page" : "false"));
   $$(".view").forEach(s => s.classList.toggle("on", s.id === "v-" + v));
   $("#h-title").textContent = TITLES[v][0]; $("#h-sub").textContent = TITLES[v][1];
-  $("#h-actions").innerHTML = v === "leads" ? `<a class="btn btn-ghost btn-sm" href="${API}/leads.csv">Export CSV</a>` : v === "today" ? `<button class="btn btn-primary btn-sm" onclick="go('audit')">Audit new leads</button>` : "";
+  $("#h-actions").innerHTML = v === "leads" ? (window.CLOSAR_ONLINE ? `<button class="btn btn-ghost btn-sm" onclick="Online.downloadCsv().catch(fail)">Export CSV</button>` : `<a class="btn btn-ghost btn-sm" href="${API}/leads.csv">Export CSV</a>`) : v === "today" ? `<button class="btn btn-primary btn-sm" onclick="go('audit')">Audit new leads</button>` : "";
   try { localStorage.setItem("closar-view", v) } catch {}
   ({today: loadToday, leads: loadLeads, pipeline: loadBoard, posts: loadPosts, services: loadServices, settings: loadSettings})[v]?.();
 }

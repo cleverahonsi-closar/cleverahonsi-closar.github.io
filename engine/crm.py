@@ -7,7 +7,7 @@ import re
 import urllib.parse
 
 import free
-from common import STAGES, cfg, days_from_today, db, now
+from common import STAGES, cfg, days_from_today, db, local_day_start_utc, now, today
 
 FIELDS = ("service", "name", "handle", "platform", "profile_url", "website", "email", "evidence", "evidence_url",
           "contact_via", "dm_url", "dm_draft", "email_subject", "email_body", "followup_draft", "value", "currency",
@@ -68,11 +68,11 @@ def add(d, source, source_ref="", stage="cold"):
         if old:
             return old["id"], False
         cols = [k for k in FIELDS if k in d]
-        con.execute(
+        cur = con.execute(
             f"INSERT INTO contacts (source, source_ref, dedupe_key, stage, created_at, updated_at, flags{''.join(', ' + c for c in cols)})"
-            f" VALUES (?,?,?,?,?,?,?{',?' * len(cols)})",
+            f" VALUES (?,?,?,?,?,?,?{',?' * len(cols)}) RETURNING id",
             (source, d["source_ref"], key, stage, now(), now(), json.dumps(d.get("flags") or []), *[d[c] for c in cols]))
-        cid = con.execute("SELECT last_insert_rowid()").fetchone()[0]
+        cid = cur.fetchone()[0]
     event(cid, "found", source, (d.get("evidence") or "")[:1500])
     return cid, True
 
@@ -145,8 +145,9 @@ def listing(stage=None, service=None, due=False, limit=300):
         where.append("service=?")
         args.append(service)
     if due:
-        where.append("stage IN ('messaged','replied','talks') AND next_follow_up IS NOT NULL AND next_follow_up<=date('now','localtime')")
-    order = "next_follow_up ASC" if due else ("score DESC, created_at DESC" if stage == "cold" else "updated_at DESC")
+        where.append("stage IN ('messaged','replied','talks') AND next_follow_up IS NOT NULL AND next_follow_up<=?")
+        args.append(today())
+    order = "next_follow_up ASC" if due else ("score DESC NULLS LAST, created_at DESC" if stage == "cold" else "updated_at DESC")
     with db() as con:
         return [row(r) for r in con.execute(
             f"SELECT * FROM contacts WHERE {' AND '.join(where)} ORDER BY {order} LIMIT ?", (*args, limit))]
@@ -159,10 +160,10 @@ def counts(service=None):
             f"SELECT stage, COUNT(*) n FROM contacts WHERE 1=1 {sw} GROUP BY stage", args)}
         due = con.execute(
             f"SELECT COUNT(*) FROM contacts WHERE stage IN ('messaged','replied','talks') AND next_follow_up IS NOT NULL"
-            f" AND next_follow_up<=date('now','localtime') {sw}", args).fetchone()[0]
+            f" AND next_follow_up<=? {sw}", (today(), *args)).fetchone()[0]
         sent_today = con.execute(
             f"SELECT COUNT(*) FROM events e JOIN contacts c ON c.id=e.contact_id WHERE e.kind IN ('messaged','followed_up')"
-            f" AND date(e.at,'localtime')=date('now','localtime') {sw.replace('service', 'c.service')}", args).fetchone()[0]
+            f" AND e.at>=? {sw.replace('service', 'c.service')}", (local_day_start_utc(), *args)).fetchone()[0]
         paid = con.execute(f"SELECT currency, SUM(value) v FROM contacts WHERE stage='paid' AND value IS NOT NULL {sw}"
                            f" GROUP BY currency", args).fetchall()
     return {"stages": by_stage, "due": due, "sent_today": sent_today,

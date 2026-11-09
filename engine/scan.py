@@ -15,7 +15,7 @@ import ai
 import free
 import prospects
 import sources
-from common import cfg, db, log, now, services, set_state
+from common import cfg, db, local_day_start_utc, log, now, services, set_state
 
 busy = threading.Lock()
 
@@ -141,7 +141,7 @@ def score_queue(limit=None):
 
 def _today_count(sql):
     with db() as con:
-        return con.execute(sql + " AND date(found_at,'localtime')=date('now','localtime')").fetchone()[0]
+        return con.execute(sql + " AND found_at>=?", (local_day_start_utc(),)).fetchone()[0]
 
 
 def answer_queue(limit=10):
@@ -149,7 +149,8 @@ def answer_queue(limit=10):
     a = cfg().get("answers") or {}
     with db() as con:  # threads that went stale while waiting aren't worth answering
         con.execute("UPDATE posts SET stage='filtered', why='question too old to answer' WHERE stage='queued'"
-                    " AND kind='question' AND julianday('now') - julianday(posted_at) > ?", (a.get("max_age_days", 2),))
+                    " AND kind='question' AND posted_at<?",
+                    ((dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=a.get("max_age_days", 2))).isoformat(),))
     if not cfg().get("auto_claude"):   # free: listed for you; Rewrite on a card asks Claude for the answer
         with db() as con:
             rows = [dict(r) for r in con.execute("SELECT * FROM posts WHERE stage='queued' AND kind='question'")]
@@ -295,8 +296,9 @@ def add_pasted(url, text, kind="hire", service=None):
     pid = "paste:" + hashlib.sha1((url or text).encode()).hexdigest()[:16]
     service = service if service in services() else best_service(text.lower()) or next(iter(services()), "")
     with db() as con:
+        con.execute("DELETE FROM posts WHERE id=?", (pid,))   # same as SQLite's INSERT OR REPLACE, works on Postgres too
         con.execute(
-            "INSERT OR REPLACE INTO posts (id,source,platform,url,author,title,text,posted_at,found_at,stage,reply_hint,"
+            "INSERT INTO posts (id,source,platform,url,author,title,text,posted_at,found_at,stage,reply_hint,"
             "kind,service,guess) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (pid, "Pasted", _platform_from_url(url) if url else "Pasted", url, "", "", text[:4000], now(), now(),
              "queued", "You found this yourself: reply where you saw it.", kind, service, service))
