@@ -9,6 +9,7 @@ import re
 import statistics
 import urllib.parse
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 
 import crm
 from common import areas, cfg, db, http_get, http_json, log, now, proof
@@ -83,7 +84,7 @@ def _site_pages(url):
     if not home:
         return pages
     host = urllib.parse.urlparse(url).netloc
-    seen = set()
+    seen, todo = set(), []
     for href in re.findall(r'href=["\']([^"\'#]+)', home, re.I):
         full = urllib.parse.urljoin(url, href)
         p = urllib.parse.urlparse(full)
@@ -92,9 +93,12 @@ def _site_pages(url):
         slug = p.path.lower().strip("/")
         last = slug.split("/")[-1]
         hit = next((k for k in SUBPAGES if k in last), None) if last else None
-        if hit and hit not in seen and len(pages) < 6:
+        if hit and hit not in seen and len(seen) < 5:
             seen.add(hit)
-            pages[full] = _get(full)
+            todo.append(full)
+    with ThreadPoolExecutor(max_workers=5) as pool:   # fetch the sub-pages at the same time
+        for full, body in zip(todo, pool.map(_get, todo)):
+            pages[full] = body
     return pages
 
 

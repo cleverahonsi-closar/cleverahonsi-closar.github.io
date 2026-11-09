@@ -393,8 +393,7 @@ function leadRow(r, extra = "") {
     ${ring(r.score)}
     <div style="min-width:0"><div class="name">${esc(r.name || where || "Unnamed")}</div>
       <div class="meta">${esc(kind === "creator" ? "Creator" : "Business")} · ${esc(where)}${r.email ? " · " + esc(r.email) : ""}</div>
-      ${chips ? `<div class="chips">${chips}</div>` : `<div class="chips"><span class="chip ${r.audited_at ? "warn" : ""}">${r.audited_at ? "No signs found yet: check it yourself" : ["post","pain","reddit"].includes(r.source) ? "From a post: " + esc((r.evidence || "").split("
-")[0].slice(0, 70)) : "Not audited yet"}</span></div>`}</div>
+      ${chips ? `<div class="chips">${chips}</div>` : `<div class="chips"><span class="chip ${r.audited_at ? "warn" : ""}">${r.audited_at ? "No signs found yet: check it yourself" : ["post","pain","reddit"].includes(r.source) ? "From a post: " + esc((r.evidence || "").split(/\r?\n/)[0].slice(0, 70)) : "Not audited yet"}</span></div>`}</div>
     <div class="right">${r.stage !== "cold" ? `<span class="stage-tag ${r.stage}">${esc(r.stage)}</span>` : ""}${extra}</div>
   </div>`;
 }
@@ -429,7 +428,7 @@ $("#audit-run").onclick = async () => {
   if (!urls) return toast("Paste a website or channel link first.");
   const btn = $("#audit-run"); btn.disabled = true; btn.textContent = "Checking…";
   const n = urls.split(/\n/).filter(Boolean).length;
-  $("#audit-results").innerHTML = skel(Math.min(n, 4)); $("#audit-sub").textContent = `checking ${n} link(s)…`;
+  $("#audit-results").innerHTML = skel(Math.min(n, 4)); $("#audit-sub").textContent = `checking ${n} link(s)… about 30 seconds${n > 4 ? " per 4 links" : ""}`;
   try {
     const res = await call("/audit", {body: {urls, kind: ui.akind}});
     $("#audit-sub").textContent = `${res.filter(r => r.item).length} checked`;

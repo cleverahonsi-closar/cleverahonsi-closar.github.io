@@ -122,4 +122,4 @@ outreach:
 audit:
   every_min: 30           # free audits of new contacts that have a website or channel (no Claude)
   per_run: 15
-  timeout: 20
+  timeout: 12

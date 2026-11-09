@@ -11,6 +11,7 @@ import socket
 import sys
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -54,7 +55,7 @@ def site():
 
 @app.get("/studio")
 def studio():
-    return FileResponse(ROOT / "studio" / "index.html")
+    return FileResponse(ROOT / "studio" / "index.html", headers={"Cache-Control": "no-store"})   # always the latest
 
 
 api = "/studio/api"
@@ -123,17 +124,18 @@ def audit_new(body: dict = Body(...)):
     if not urls:
         raise HTTPException(400, "Paste a website or channel link.")
     kind = body.get("kind") if body.get("kind") in ("business", "creator") else None
-    out = []
-    for u in urls[:20]:
+    def one(u):
         try:
             c, created = audit.add_and_audit(u, kind, body.get("name", "") if len(urls) == 1 else "",
                                              body.get("email", "") if len(urls) == 1 else "")
             c["audit"] = json.loads(c.get("audit") or "null")
-            out.append({"url": u, "created": created, "item": c})
+            return {"url": u, "created": created, "item": c}
         except Exception as e:
             log("audit", f"{u}: {e}")
-            out.append({"url": u, "error": str(e)})
-    return out
+            return {"url": u, "error": str(e)}
+
+    with ThreadPoolExecutor(max_workers=4) as pool:   # several links are checked at the same time
+        return list(pool.map(one, urls[:20]))
 
 
 @app.post(api + "/leads/{cid}/signs")
