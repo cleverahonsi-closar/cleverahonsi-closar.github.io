@@ -326,6 +326,7 @@
       const box = document.createElement("div");
       box.id = "signin";
       box.innerHTML = `<style>
+        #signin,#signin *{box-sizing:border-box}
         #signin{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:16px;background:var(--bg)}
         #signin form{width:min(380px,100%);padding:28px;display:grid;gap:12px}
         #signin h1{font:700 1.35rem/1.2 var(--font);letter-spacing:-.02em;margin:0 0 4px}
