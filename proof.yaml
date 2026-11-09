@@ -1,0 +1,72 @@
+# Your proof of work. Drafts ONLY use what is written here and in areas.yaml; nothing gets invented.
+# Empty links show up as [ADD LINK] in drafts. Keep every line true.
+
+name: Clever Ahonsi
+brand: Closar
+about: ""          # one or two plain lines about you, in your own words
+
+business:
+  links: []        # - {label: "Closar portfolio", url: "https://..."}  (add when the site is live)
+  facts:           # check them
+    - "Built a ballet ticket sales engine for a ballet conservatory with n8n + Gemini"
+    - "Kept on as their automation contractor: 9 systems in one month, plus a GoHighLevel intake and an email deliverability (DNS) fix"
+    - "Sets up GoHighLevel, n8n, Zapier, Notion and ManyChat for clients"
+    - "Built a lead finder that scans posts, scores them and drafts replies"
+    - "B.Sc. Statistics, University of Benin (2019-2022)"
+
+creator:
+  links: []
+  facts:
+    - "Runs content farms: ideas, scripts and scheduled posting for several pages"
+    - "Built a crosspost system: one post is rewritten by AI for each network and posted to TikTok, Instagram and YouTube automatically"
+    - "Built a post guard that pulls metrics, checks every post for repeats and holds bad posts back"
+
+contact:
+  email: "ahonsiclever@gmail.com"
+
+# Added under every cold email. US law (CAN-SPAM) also asks for a postal address in commercial email:
+# add one line with an address you're comfortable sharing (a P.O. box works).
+email_footer: |
+  Clever Ahonsi · Closar
+  If this isn't useful, reply "no thanks" and I won't email you again.
+
+# Fill-in templates (no Claude). Audited leads get the problem-led message built from areas.yaml instead.
+# Placeholders: {first} their name, {seen} what you saw of theirs, {pitch} {offer} {topic}, {link}.
+templates:
+  reply: |
+    Hi {first}, I can help with this. {pitch} {offer}
+    My work: {link}
+    Send me the details and I'll tell you how I'd handle it and what it would cost.
+
+    Clever
+  dm: |
+    Hi {first}, I saw {seen}. {offer} {pitch}
+    My work: {link}
+    Would some help with {topic} be useful right now?
+
+    Clever
+  followups:
+    - |
+      Hi {first}, just checking you saw my message about {topic}. Happy to help if it's still useful.
+
+      Clever
+    - |
+      Hi {first}, in case it helps: {pitch} {link}
+      If now isn't the time, no problem.
+
+      Clever
+    - |
+      Hi {first}, last note from me on this. If you ever need help with {topic}, I'm around.
+
+      Clever
+  services:
+    business:
+      pitch: "I build automations for businesses: I made a ticket sales engine for a ballet conservatory with n8n + Gemini, and they kept me on as their automation contractor."
+      offer: "I can automate the part of your business that's leaking time or leads."
+      topic: "the repetitive work"
+      email_subject: "A quick fix I spotted"
+    creator:
+      pitch: "I run automated content systems: one recording becomes daily clips, captioned and scheduled across every platform."
+      offer: "I can keep your page posting every day from what you already record."
+      topic: "posting consistently"
+      email_subject: "Keeping your page posting"

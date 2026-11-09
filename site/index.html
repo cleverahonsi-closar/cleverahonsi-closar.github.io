@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Closar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column. Hero (copy | phone) → what we do → RenderHub edge → plans → 3-step picker → after → FAQ.
+   Motion: transform/opacity only, custom curves, press feedback on pointer-down, hover gated to fine pointers. */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --ink:#10221C; --muted:#56635D; --line:#DDE2DC; --line-strong:#C5CDC6;
+  --accent:#177D52; --accent-ink:#FFFFFF; --accent-soft:#E3F1E9; --logo-green:#177D52;
+  --drop:#A87800; --drop-soft:#FBF0CC;
+  --phone:#0E1814; --phone-fg:#F3F6F2;
+  --glass:rgba(243,244,241,.72); --glass-edge:rgba(16,34,28,.08);
+  --shadow-sm:0 1px 2px rgba(16,34,28,.06), 0 2px 8px rgba(16,34,28,.04);
+  --shadow-lg:0 2px 4px rgba(16,34,28,.04), 0 24px 48px -20px rgba(16,34,28,.22);
+
+  --display:"Be Vietnam Pro", -apple-system, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --body:-apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --ease-drawer:cubic-bezier(.32,.72,0,1);
+  --wrap:72rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
+  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A; --logo-green:#22925F;
+  --drop:#F2C230; --drop-soft:#3A3014; --phone:#050807; --phone-fg:#F3F6F2;
+  --glass:rgba(13,19,17,.7); --glass-edge:rgba(255,255,255,.07);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
+  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A; --logo-green:#22925F;
+  --drop:#F2C230; --drop-soft:#3A3014; --phone:#050807; --phone-fg:#F3F6F2;
+  --glass:rgba(13,19,17,.7); --glass-edge:rgba(255,255,255,.07);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);letter-spacing:-.003em;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* Type: tracking tightens as size grows; leading loosens as size shrinks */
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;font-optical-sizing:auto}
+h1{font-size:clamp(2.5rem,5.4vw,4.25rem);font-weight:800;line-height:1.02;letter-spacing:-.035em}
+h2{font-size:clamp(1.9rem,3.6vw,2.75rem);font-weight:700;line-height:1.06;letter-spacing:-.028em}
+h3{font-size:1.2rem;font-weight:700;line-height:1.2;letter-spacing:-.012em}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:1.15rem;line-height:1.55;color:var(--muted);max-width:56ch}
+.small{font-size:.875rem;line-height:1.5;letter-spacing:.005em}
+
+/* Buttons: feedback on press, exact properties, custom curve */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font:600 1rem/1.2 var(--body);letter-spacing:-.005em;padding:.95em 1.45em;border-radius:999px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;text-align:center;user-select:none;-webkit-user-select:none;touch-action:manipulation;
+  transition:transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease}
+.btn:active{transform:scale(.97);transition-duration:100ms}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 0 rgba(255,255,255,.18) inset, 0 6px 16px -8px color-mix(in srgb,var(--accent) 70%,transparent)}
+.btn-ghost{border-color:var(--line-strong);color:var(--ink);background:transparent}
+@media (hover:hover) and (pointer:fine){
+  .btn-primary:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  nav.links a:hover{color:var(--ink)}
+  .plan:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+}
+
+/* Header: translucent material; edge appears only once content scrolls beneath it */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--glass);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 1px 0 transparent;transition:box-shadow 200ms ease}
+header.top.scrolled{box-shadow:0 1px 0 var(--glass-edge), 0 8px 24px -16px rgba(0,0,0,.18)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.8rem}
+nav.links{display:flex;gap:1.6rem;font-weight:500;font-size:.94rem}
+nav.links a{text-decoration:none;color:var(--muted);transition:color 150ms ease}
+nav.links a[aria-current="true"]{color:var(--ink)}
+header.top .btn{padding:.68em 1.1em;font-size:.92rem}
+@media (max-width:860px){nav.links{display:none}}
+
+/* closar wordmark: lowercase, the "o" is the green play mark */
+.wm{display:inline-flex;align-items:baseline;font:800 1.55rem/1 var(--display);letter-spacing:-.045em;color:var(--ink);text-decoration:none}
+.wm svg{width:.66em;height:.66em;margin:0 .03em 0 .01em;align-self:center;transform:translateY(.07em);flex:none}
+.wm .play{fill:var(--bg)}
+.wm .disc{fill:var(--logo-green)}
+
+/* Hero entrance: one orchestrated moment, short stagger, transform + opacity only */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rise{animation:rise 520ms var(--ease-out) both}
+.rise:nth-child(2){animation-delay:50ms}.rise:nth-child(3){animation-delay:100ms}.rise:nth-child(4){animation-delay:150ms}.rise:nth-child(5){animation-delay:200ms}
+@keyframes lift{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.stage{animation:lift 700ms var(--ease-out) 120ms both}
+
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding-block:4.5rem 4.5rem}
+.hero-copy{display:flex;flex-direction:column;gap:1.35rem;min-width:0}
+.cta-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.3rem}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;font:500 .75rem/1 var(--mono);letter-spacing:.03em;color:var(--muted)}
+.path b{color:var(--ink);font-weight:500;padding:.55em .75em;border-radius:8px;background:var(--surface);box-shadow:var(--shadow-sm)}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding-block:3rem}}
+
+.stage{display:flex;flex-direction:column;align-items:center;gap:1.1rem;min-width:0}
+.phone{width:min(260px,100%);aspect-ratio:9/16;background:var(--phone);border-radius:36px;padding:11px;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset, var(--shadow-lg), 0 50px 80px -40px rgba(16,34,28,.45)}
+.screen{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:radial-gradient(120% 70% at 30% 20%,#2b4a3d 0%,#14221c 55%,#0b1210 100%)}
+.screen .tag{position:absolute;top:14px;left:14px;font:500 .6rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--phone-fg);opacity:.65}
+.screen .mark{position:absolute;top:11px;right:12px;width:20px;height:20px;opacity:.85}
+.screen .shot{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:44% 18px 0}
+.cap{font:800 1.25rem/1.16 var(--display);letter-spacing:-.015em;color:var(--phone-fg);text-align:center;text-wrap:balance;
+  transition:opacity 180ms var(--ease-out), transform 180ms var(--ease-out), filter 180ms var(--ease-out)}
+.cap.swap{opacity:0;transform:translateY(5px);filter:blur(3px)}
+.cap.payoff{color:#FFD65A}
+.screen .meta{position:absolute;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;font:500 .6rem/1 var(--mono);color:var(--phone-fg);opacity:.7}
+.timeline{width:min(320px,100%)}
+.tl-head{display:flex;justify-content:space-between;font:500 .68rem/1 var(--mono);color:var(--muted);margin-bottom:.5rem}
+.track{position:relative;height:34px;border-radius:10px;background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden}
+.beat{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.cut{position:absolute;top:7px;bottom:7px;width:3px;border-radius:2px;background:var(--accent)}
+.cut.drop{background:var(--drop);width:5px}
+.playhead{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--ink);will-change:transform}
+.tl-legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin-top:.6rem;font-size:.8rem;color:var(--muted)}
+.tl-legend span{display:inline-flex;align-items:center;gap:.4rem}
+.tl-legend i{display:inline-block;width:10px;height:10px;border-radius:3px}
+
+section{padding-block:5.5rem}
+.head{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.75rem;max-width:46rem}
+.band{background:var(--surface)}
+
+/* what we do */
+.does{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.do{display:flex;flex-direction:column;gap:.5rem;padding-top:1.1rem;border-top:2px solid var(--ink);min-width:0}
+.do p{color:var(--muted)}
+.who{font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.who.us{color:var(--accent)} .who.you{color:var(--drop)}
+.rule-strip{margin-top:2.4rem;padding:1.2rem 1.4rem;border-radius:16px;background:var(--accent-soft);display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:baseline}
+.rule-strip b{font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.for-list{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;font-size:.9rem;color:var(--muted)}
+.for-list span{padding:.35em .85em;border-radius:999px;background:var(--bg);color:var(--ink)}
+@media (max-width:760px){.does{grid-template-columns:1fr}.rule-strip{grid-template-columns:1fr;gap:.4rem}}
+
+/* edge */
+.edge .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+.edge-mark{width:84px;height:84px}
+.edge-copy{display:flex;flex-direction:column;gap:1rem;min-width:0;position:sticky;top:6rem}
+.edge-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.edge-item{display:flex;flex-direction:column;gap:.45rem;padding:1.3rem;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);min-width:0}
+.edge-item p{color:var(--muted);font-size:.95rem}
+.edge-item .k{font:500 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+@media (max-width:900px){.edge .wrap{grid-template-columns:1fr}.edge-copy{position:static}}
+@media (max-width:560px){.edge-list{grid-template-columns:1fr}}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:stretch}
+.plan{display:flex;flex-direction:column;gap:1rem;padding:1.6rem;border-radius:22px;background:var(--surface);box-shadow:var(--shadow-sm);min-width:0;
+  transition:transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out)}
+.plan.pop{box-shadow:0 0 0 2px var(--accent), var(--shadow-sm)}
+@media (hover:hover) and (pointer:fine){.plan.pop:hover{box-shadow:0 0 0 2px var(--accent), var(--shadow-lg)}}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem}
+.plan-name{font:800 1.3rem/1 var(--display);letter-spacing:-.02em}
+.badge{font:500 .62rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:.5em .65em;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
+.price{font:800 2.3rem/1 var(--display);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.price small{font:500 .9rem/1 var(--body);color:var(--muted);letter-spacing:0}
+.plan-for{font-size:.95rem;color:var(--muted)}
+.big-num{display:flex;align-items:baseline;gap:.5rem;padding-block:.85rem;border-block:1px solid var(--line)}
+.big-num strong{font:800 1.8rem/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.big-num span{font-size:.9rem;color:var(--muted)}
+.plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem;font-size:.94rem;flex:1}
+.plan li{display:grid;grid-template-columns:1rem 1fr;gap:.5rem}
+.plan li::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--accent);margin-top:.55em}
+.plan li.inherit{color:var(--muted)}
+.plan li.inherit::before{background:var(--line-strong)}
+.plan-btns{display:flex;flex-direction:column;gap:.5rem;margin-top:.4rem}
+.plan-btns .btn{width:100%}
+@media (max-width:960px){.plans{grid-template-columns:1fr;max-width:32rem}}
+
+.all-plans{margin-top:1.4rem;padding:1.2rem 1.4rem;border-radius:16px;background:var(--surface);display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.92rem;color:var(--muted)}
+.all-plans b{color:var(--ink);font-weight:600;flex-basis:100%}
+
+.table-scroll{overflow-x:auto;margin-top:3rem;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:640px}
+th,td{text-align:left;padding:.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+thead th{font:500 .7rem/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+td:first-child{font-weight:600;width:24%}
+td.c{text-align:center;font-variant-numeric:tabular-nums;width:12%}
+td small{display:block;font-weight:400;color:var(--muted);font-size:.84rem;line-height:1.45}
+.yes{color:var(--accent);font-weight:700}
+.no{color:var(--muted)}
+
+/* start: segmented controls with a sliding thumb (interruptible CSS transition) */
+.start-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:1rem;align-items:start}
+.box{display:flex;flex-direction:column;gap:1.1rem;padding:1.6rem;border-radius:22px;background:var(--bg);min-width:0}
+.box-num{font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.box p{color:var(--muted);font-size:.95rem}
+.field{display:flex;flex-direction:column;gap:.55rem}
+.field > span{font-size:.85rem;font-weight:600;color:var(--muted)}
+.seg{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding:4px;border-radius:14px;background:color-mix(in srgb,var(--ink) 7%,var(--bg))}
+.seg label{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:3.1rem;padding:.45rem .5rem;border-radius:10px;cursor:pointer;text-align:center;user-select:none;-webkit-user-select:none;touch-action:manipulation;transition:transform 120ms var(--ease-out)}
+.seg label:active{transform:scale(.97)}
+.seg label b{font-size:.95rem;font-weight:600;letter-spacing:-.01em}
+.seg label small{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.seg-thumb{position:absolute;z-index:0;top:4px;bottom:4px;left:4px;border-radius:10px;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.08), 0 3px 10px -2px rgba(0,0,0,.12);
+  transition:transform 320ms var(--ease-drawer);will-change:transform}
+.includes{display:flex;flex-wrap:wrap;gap:.4rem}
+.includes span{font-size:.82rem;padding:.35em .7em;border-radius:999px;background:var(--surface);color:var(--ink)}
+.summary{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;padding:1.1rem 1.2rem;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}
+.summary .lbl{font-size:.88rem;color:var(--muted)}
+.morph{display:inline-block;transition:opacity 160ms var(--ease-out), filter 160ms var(--ease-out), transform 160ms var(--ease-out)}
+.morph.out{opacity:.25;filter:blur(3px);transform:translateY(2px)}
+.amount{font:800 2rem/1 var(--display);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.box .btn{width:100%}
+.hint{font-size:.82rem;color:var(--muted);text-align:center}
+.side{display:flex;flex-direction:column;gap:1rem}
+@media (max-width:900px){.start-grid{grid-template-columns:1fr;max-width:36rem}}
+
+/* after */
+.after{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.after li{display:flex;flex-direction:column;gap:.5rem;padding-top:1rem;border-top:2px solid var(--ink);min-width:0}
+.after li p{color:var(--muted);font-size:.95rem}
+.after .when{font:500 .7rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.folders{display:flex;flex-wrap:wrap;gap:.35rem}
+.folders span{font:500 .7rem/1 var(--mono);padding:.45em .6em;border-radius:6px;border:1px dashed var(--line-strong)}
+@media (max-width:960px){.after{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.after{grid-template-columns:1fr}}
+
+.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem 3rem}
+.qa{display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.qa h3{font-size:1.06rem}
+.qa p{color:var(--muted)}
+@media (max-width:760px){.faq{grid-template-columns:1fr}}
+
+.founder .wrap{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;max-width:54rem}
+.avatar{width:96px;height:96px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font:800 2rem/1 var(--display);letter-spacing:-.03em;color:var(--accent)}
+.founder p{color:var(--muted);margin-top:.6rem;max-width:60ch}
+@media (max-width:560px){.founder .wrap{grid-template-columns:1fr}}
+
+.final{background:var(--ink);color:var(--bg)}
+.final .wrap{display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem}
+.final h2{color:var(--bg);max-width:20ch}
+.final p{color:color-mix(in srgb,var(--bg) 75%,var(--ink));max-width:56ch}
+.final .btn-ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,var(--ink))}
+
+footer{padding-block:2.2rem;font-size:.85rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem}
+
+/* Accessibility: gentler motion, solid materials, stronger edges */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise,.stage{animation:fade 200ms ease both}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .btn:active,.seg label:active{transform:none}
+  .cap.swap{transform:none;filter:none}
+  .morph.out{transform:none;filter:none}
+  .seg-thumb{transition:none}
+  @media (hover:hover){.plan:hover{transform:none}}
+}
+@media (prefers-reduced-transparency:reduce){header.top{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
+@media (prefers-contrast:more){:root{--line:#8A968F;--muted:#3C4842}.plan,.edge-item,.summary,.table-scroll{box-shadow:0 0 0 1.5px var(--ink)}}
+</style>
+
+<header class="top" id="hdr">
+  <div class="wrap">
+    <a class="wm" href="#top" aria-label="Closar home">cl<svg viewBox="0 0 100 100" aria-hidden="true"><circle class="disc" cx="50" cy="50" r="50"/><path class="play" d="M40 30 L72 50 L40 70Z"/></svg>sar</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#what">What we do</a>
+      <a href="#edge">Our edge</a>
+      <a href="#plans">Plans</a>
+      <a href="#start">Get started</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="btn btn-primary" href="#plans">See the plans</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" style="padding-block:0">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow rise">Short-form video, done for you</span>
+        <h1 class="rise">We make your weekly Reels, TikToks and Shorts. You just post.</h1>
+        <p class="lede rise">Closar turns your photos, phone clips and stories into ready-to-post short videos every week, built on the formats already winning in your field. Made for busy professionals and founders in Nigeria.</p>
+        <div class="cta-row rise">
+          <a class="btn btn-primary" href="#plans">See the plans</a>
+          <a class="btn btn-ghost" href="#start" data-pick-pay="demo">Try a 1-week demo · ₦20,000</a>
+        </div>
+        <div class="path rise" aria-label="How to start">
+          <b>1 · Pick a plan</b><span aria-hidden="true">→</span><b>2 · Pay full or demo</b><span aria-hidden="true">→</span><b>3 · Book your call</b>
+        </div>
+      </div>
+
+      <div class="stage" aria-label="Example video">
+        <div class="phone">
+          <div class="screen">
+            <span class="tag">Example video</span>
+            <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="#22925F"/><path d="M40 30 L72 50 L40 70Z" fill="#F3F6F2"/></svg>
+            <div class="shot"><p class="cap" id="cap">I almost turned down my biggest client.</p></div>
+            <div class="meta"><span id="shotno">Shot 1 / 4</span><span>0:10</span></div>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="tl-head"><span>0:00</span><span>cuts on the beat</span><span>0:10</span></div>
+          <div class="track" id="track" aria-hidden="true"><span class="playhead" id="playhead"></span></div>
+          <div class="tl-legend">
+            <span><i style="background:var(--accent)"></i>Cut to next line</span>
+            <span><i style="background:var(--drop)"></i>Song's drop hits the payoff</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="what">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">What Closar does</span>
+        <h2>A done-for-you video team that keeps your page alive every week.</h2>
+        <p class="lede">You're good at what you do, but you don't have time to film, edit and figure out what to post. We handle all of that, using your own material so every video is clearly you.</p>
+      </div>
+      <div class="does">
+        <div class="do"><span class="who us">We research</span><h3>Find what works in your field</h3><p>We study the top short videos in your niche on YouTube and TikTok: how they open, how long they run, how fast they cut. We use only the format, never anyone's video.</p></div>
+        <div class="do"><span class="who us">We make</span><h3>Turn your material into videos</h3><p>Your clips, photos and stories become finished videos with captions, music timed to the beat and a strong first line. Every video is checked before you see it.</p></div>
+        <div class="do"><span class="who you">You post</span><h3>Post in five minutes a day</h3><p>Each week your videos arrive ready to go, with a note telling you the caption and sound to use. Each month you get a report on what worked.</p></div>
+      </div>
+      <div class="rule-strip"><b>Our one rule</b><span>We copy the format, never the footage. Every video has something only you have: your face, work, photos, product, voice or story.</span></div>
+      <div class="for-list">Made for: <span>Founders</span><span>Lawyers</span><span>Doctors</span><span>Coaches</span><span>Marketers</span><span>Consultants</span><span>Creatives</span></div>
+    </div>
+  </section>
+
+  <section class="edge" id="edge">
+    <div class="wrap">
+      <div class="edge-copy">
+        <svg class="edge-mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="var(--logo-green)"/><circle cx="50" cy="50" r="28" fill="var(--bg)"/><path d="M43 37 L64 50 L43 63Z" fill="var(--logo-green)"/></svg>
+        <span class="eyebrow">Our edge</span>
+        <h2>RenderHub is your edge.</h2>
+        <p class="lede">Behind Closar is RenderHub, our own video system. It does the research, the editing and the checking, so you get more videos, made faster, without the quality slipping.</p>
+      </div>
+      <div class="edge-list">
+        <div class="edge-item"><span class="k">Research</span><h3>It studies your niche</h3><p>It finds the top short videos in your field on YouTube and TikTok and learns how they open, how long they run and how fast they cut.</p></div>
+        <div class="edge-item"><span class="k">Production</span><h3>It builds from your story</h3><p>Your stories and lessons go into a content bank once. Every week, new videos are built from it and from the clips in your folder.</p></div>
+        <div class="edge-item"><span class="k">Sound</span><h3>It times the music</h3><p>A library of trending sounds is refreshed every day. Each song's drop is measured so it lands on your payoff line.</p></div>
+        <div class="edge-item"><span class="k">Quality</span><h3>It checks every frame</h3><p>Blurry, black or blank clips are rejected automatically. When a video is turned down, the reason becomes a rule, so the same mistake doesn't come back.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="plans">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Plans</span>
+        <h2>Three plans. Pay for the month, or try one week first.</h2>
+        <p class="lede">Every plan can start with a 1-week demo for ₦20,000: one week of real videos on that plan, so you can see the work before you commit.</p>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <div class="plan-top"><span class="plan-name">Starter</span></div>
+          <div class="price">₦50,000 <small>/ month</small></div>
+          <p class="plan-for">Keep your page active with a steady rhythm. Good if you're just starting to post.</p>
+          <div class="big-num"><strong>5</strong><span>videos a week · about 20 a month</span></div>
+          <ul>
+            <li>1 video format that fits you best</li>
+            <li>Captions and music on every video</li>
+            <li>No voiceover</li>
+            <li>Monthly results report</li>
+          </ul>
+          <div class="plan-btns">
+            <a class="btn btn-primary" href="#start" data-pick-plan="starter" data-pick-pay="full">Pay for Starter · ₦50,000</a>
+            <a class="btn btn-ghost" href="#start" data-pick-plan="starter" data-pick-pay="demo">Try 1 week · ₦20,000</a>
+          </div>
+        </article>
+
+        <article class="plan pop">
+          <div class="plan-top"><span class="plan-name">Growth</span><span class="badge">Recommended</span></div>
+          <div class="price">₦100,000 <small>/ month</small></div>
+          <p class="plan-for">Post every day with more variety and a voice telling your story.</p>
+          <div class="big-num"><strong>7</strong><span>videos a week · about 30 a month</span></div>
+          <ul>
+            <li class="inherit">Everything in Starter, plus:</li>
+            <li>3 video formats for more variety</li>
+            <li>Professional AI voiceover</li>
+            <li>Fresh content ideas for your niche</li>
+          </ul>
+          <div class="plan-btns">
+            <a class="btn btn-primary" href="#start" data-pick-plan="growth" data-pick-pay="full">Pay for Growth · ₦100,000</a>
+            <a class="btn btn-ghost" href="#start" data-pick-plan="growth" data-pick-pay="demo">Try 1 week · ₦20,000</a>
+          </div>
+        </article>
+
+        <article class="plan">
+          <div class="plan-top"><span class="plan-name">Pro</span></div>
+          <div class="price">₦150,000 <small>/ month</small></div>
+          <p class="plan-for">For people serious about growing fast and standing out in their field.</p>
+          <div class="big-num"><strong>10</strong><span>videos a week · about 40 a month</span></div>
+          <ul>
+            <li class="inherit">Everything in Growth, plus:</li>
+            <li>5 video formats</li>
+            <li>Voiceover in your own voice</li>
+            <li>Trend tracking in your niche</li>
+            <li>Two openings tested per video</li>
+            <li>Competitor watch</li>
+            <li>Custom cover images</li>
+          </ul>
+          <div class="plan-btns">
+            <a class="btn btn-primary" href="#start" data-pick-plan="pro" data-pick-pay="full">Pay for Pro · ₦150,000</a>
+            <a class="btn btn-ghost" href="#start" data-pick-plan="pro" data-pick-pay="demo">Try 1 week · ₦20,000</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="all-plans" style="background:var(--bg)">
+        <b>Every plan includes</b>
+        <span>A kickoff call</span><span>Your own Google Drive folder</span><span>Research on your niche</span><span>Quality check on every video</span><span>Posting notes</span><span>Fixes if a video isn't right</span>
+      </div>
+
+      <div class="table-scroll" role="region" aria-label="Plan comparison" tabindex="0" style="background:var(--bg);box-shadow:none">
+        <table>
+          <thead><tr><th>What it means</th><th></th><th>Starter</th><th>Growth</th><th>Pro</th></tr></thead>
+          <tbody>
+            <tr><td>Videos per week</td><td><small>Finished, ready-to-post videos.</small></td><td class="c">5</td><td class="c">7</td><td class="c">10</td></tr>
+            <tr><td>Video formats</td><td><small>A format is a style of video, like a story told with photos, a quick tip, or a before-and-after.</small></td><td class="c">1</td><td class="c">3</td><td class="c">5</td></tr>
+            <tr><td>Voiceover</td><td><small>A voice reading the words on screen.</small></td><td class="c no">None</td><td class="c">AI voice</td><td class="c">Your voice</td></tr>
+            <tr><td>Content ideas</td><td><small>New topics for you, drawn from what's working in your niche.</small></td><td class="c no">–</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+            <tr><td>Trend tracking</td><td><small>We watch for trends and sounds you can ride early.</small></td><td class="c no">–</td><td class="c no">–</td><td class="c yes">✓</td></tr>
+            <tr><td>Opening tests</td><td><small>Two versions of the first line, so we learn which hooks work for you.</small></td><td class="c no">–</td><td class="c no">–</td><td class="c yes">✓</td></tr>
+            <tr><td>Competitor watch</td><td><small>We track the accounts you compete with and what's working for them.</small></td><td class="c no">–</td><td class="c no">–</td><td class="c yes">✓</td></tr>
+            <tr><td>Custom covers</td><td><small>A designed cover image so your profile grid looks clean.</small></td><td class="c no">–</td><td class="c no">–</td><td class="c yes">✓</td></tr>
+            <tr><td>Monthly report</td><td><small>What worked, what didn't, and what changes next month.</small></td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Get started</span>
+        <h2>Three steps to your first videos.</h2>
+        <p class="lede">Choose a plan, pay for the full month or a 1-week demo, then book your kickoff call.</p>
+      </div>
+      <div class="start-grid">
+        <div class="box" style="background:var(--surface);box-shadow:var(--shadow-sm)">
+          <div class="field">
+            <span><span class="box-num">Step 1</span> · Pick your plan</span>
+            <div class="seg" role="radiogroup" aria-label="Plan">
+              <span class="seg-thumb" aria-hidden="true"></span>
+              <label><input type="radio" name="plan" id="plan-starter" value="starter"><b>Starter</b><small>5 / week</small></label>
+              <label><input type="radio" name="plan" id="plan-growth" value="growth" checked><b>Growth</b><small>7 / week</small></label>
+              <label><input type="radio" name="plan" id="plan-pro" value="pro"><b>Pro</b><small>10 / week</small></label>
+            </div>
+            <div class="includes" id="includes" aria-live="polite"></div>
+          </div>
+          <div class="field">
+            <span><span class="box-num">Step 2</span> · Pay full or try a demo</span>
+            <div class="seg" role="radiogroup" aria-label="Payment">
+              <span class="seg-thumb" aria-hidden="true"></span>
+              <label><input type="radio" name="pay" id="pay-full" value="full" checked><b>Full month</b><small id="full-price">₦100,000</small></label>
+              <label><input type="radio" name="pay" id="pay-demo" value="demo"><b>1-week demo</b><small>₦20,000</small></label>
+            </div>
+          </div>
+          <div class="summary">
+            <div><div class="lbl morph" id="sum-label">Growth · full month</div></div>
+            <div class="amount morph" id="sum-price">₦100,000</div>
+          </div>
+          <a class="btn btn-primary" id="pay-btn" href="#" target="_blank" rel="noopener">Pay ₦100,000</a>
+          <span class="hint" id="pay-hint"></span>
+        </div>
+        <div class="side">
+          <div class="box">
+            <span class="box-num">Step 3</span>
+            <h3>Book your kickoff call</h3>
+            <p>Once you've paid, pick a time for a short call. We go through your account, agree on your formats and show you how to fill your folder.</p>
+            <a class="btn btn-ghost" id="book-btn" href="#" target="_blank" rel="noopener">Book a call</a>
+            <span class="hint" id="book-hint"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">After you book</span>
+        <h2>What happens next.</h2>
+      </div>
+      <ol class="after">
+        <li><span class="when">On the call</span><h3>We plan your videos</h3><p>We check your page against 25 easy, high-engagement video formats and agree on the ones that suit you.</p></li>
+        <li><span class="when">Same day</span><h3>You fill your folder</h3><p>We share a Google Drive folder with labelled sections. Phone footage and old photos are perfect.</p><div class="folders"><span>B-roll</span><span>Photos</span><span>Proof</span><span>Reaction</span><span>Talking</span></div></li>
+        <li><span class="when">Every week</span><h3>Videos arrive</h3><p>Ready-to-post videos, each with a posting note: the caption, the sound and where to start it.</p></li>
+        <li><span class="when">Every month</span><h3>We report and adjust</h3><p>You see what worked, and we change next month's mix to do more of it.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Questions</span>
+        <h2>Things people ask before starting.</h2>
+      </div>
+      <div class="faq">
+        <div class="qa"><h3>What's the difference between the demo and a full plan?</h3><p>The demo is one week of videos on the plan you choose, for ₦20,000. A full plan is a month of videos. If you continue after the demo, you just pay for the month.</p></div>
+        <div class="qa"><h3>Do I have to show my face or talk to the camera?</h3><p>No. Many of the best formats use photos, clips of your work and text on screen. If you're happy on camera, we can use that too.</p></div>
+        <div class="qa"><h3>What do I need to send?</h3><p>Phone clips of your work, photos (old ones are great), screenshots of results or kind messages, and a few stories from your career. We tell you exactly what's missing.</p></div>
+        <div class="qa"><h3>Which platforms is this for?</h3><p>Instagram Reels, TikTok and YouTube Shorts. They all use vertical video, so one video works on all three.</p></div>
+        <div class="qa"><h3>Who posts the videos?</h3><p>You do, so your account stays in your hands. Each video comes with a posting note so it only takes a few minutes.</p></div>
+        <div class="qa"><h3>Can I change or reject a video?</h3><p>Yes. Tell us what's wrong and we fix it. We also learn from it, so the same problem doesn't come back.</p></div>
+        <div class="qa"><h3>Can I switch plans later?</h3><p>Yes. Move up or down at the start of any month.</p></div>
+        <div class="qa"><h3>Is this AI?</h3><p>We use software to research formats and speed up editing. The footage, the stories and the voice are yours, and every video is checked before you get it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band founder">
+    <div class="wrap">
+      <div class="avatar" aria-hidden="true">CA</div>
+      <div>
+        <span class="eyebrow">Who you'll work with</span>
+        <h3 style="margin-top:.6rem;font-size:1.6rem;letter-spacing:-.02em">Clever Ahonsi</h3>
+        <p>I run Closar myself. You deal with me directly, from the kickoff call to your monthly report. See my own work on Instagram at <a href="https://www.instagram.com/clever_ahonsi/" target="_blank" rel="noopener">@clever_ahonsi</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--accent)">Ready?</span>
+      <h2>Pick a plan, or try one week first.</h2>
+      <p>Pay for the month and start right away, or pay ₦20,000 for a 1-week demo. Either way, your next step is a call with us.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#plans">See the plans</a>
+        <a class="btn btn-ghost" href="#start" data-pick-pay="demo">Try a demo · ₦20,000</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem"><a class="wm" href="#top" aria-label="Closar home" style="font-size:1.2rem">cl<svg viewBox="0 0 100 100" aria-hidden="true"><circle class="disc" cx="50" cy="50" r="50"/><path class="play" d="M40 30 L72 50 L40 70Z"/></svg>sar</a>© 2026 Closar. Short videos for professionals, made from your own material.</span>
+    <span>Nigeria</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---- Fill these in. Empty links fall back to an Instagram DM. ----
+  // Payment links: Paystack / Flutterwave / Selar payment pages, one per plan and option.
+  var PAY_LINKS = {
+    starter: { full: "", demo: "" },
+    growth:  { full: "", demo: "" },
+    pro:     { full: "", demo: "" }
+  };
+  var BOOKING_LINK = "";   // Calendly or Cal.com link for the kickoff call
+  var FALLBACK = "https://ig.me/m/clever_ahonsi";
+
+  var PLANS = {
+    starter: { name: "Starter", price: 50000,  inc: ["5 videos a week", "1 format", "Captions + music", "Monthly report"] },
+    growth:  { name: "Growth",  price: 100000, inc: ["7 videos a week", "3 formats", "AI voiceover", "Content ideas", "Monthly report"] },
+    pro:     { name: "Pro",     price: 150000, inc: ["10 videos a week", "5 formats", "Your own voice", "Trends", "Hook tests", "Competitor watch", "Covers"] }
+  };
+  var DEMO = 20000;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function naira(n){ return "₦" + n.toLocaleString("en-NG"); }
+
+  // Segmented controls: thumb slides with transform only; CSS transitions retarget if clicked mid-flight.
+  function syncThumb(seg){
+    var labels = seg.querySelectorAll("label"), thumb = seg.querySelector(".seg-thumb"), idx = 0;
+    labels.forEach(function(l, i){ if (l.querySelector("input").checked) idx = i; });
+    thumb.style.width = "calc((100% - 8px) / " + labels.length + ")";
+    thumb.style.transform = "translateX(" + (idx * 100) + "%)";
+  }
+  var segs = document.querySelectorAll(".seg");
+
+  // Blur crossfade for text that changes in place.
+  function morph(el, text){
+    if (el.textContent === text) return;
+    if (reduce) { el.textContent = text; return; }
+    el.classList.add("out");
+    setTimeout(function(){ el.textContent = text; el.classList.remove("out"); }, 120);
+  }
+
+  var payBtn = document.getElementById("pay-btn"), payHint = document.getElementById("pay-hint");
+  var includes = document.getElementById("includes");
+  function update(){
+    var plan = document.querySelector('input[name="plan"]:checked').value;
+    var pay = document.querySelector('input[name="pay"]:checked').value;
+    var p = PLANS[plan], amount = pay === "full" ? p.price : DEMO;
+    document.getElementById("full-price").textContent = naira(p.price);
+    morph(document.getElementById("sum-label"), p.name + (pay === "full" ? " · full month" : " · 1-week demo"));
+    morph(document.getElementById("sum-price"), naira(amount));
+    includes.innerHTML = "";
+    p.inc.forEach(function(t){ var s = document.createElement("span"); s.textContent = t; includes.appendChild(s); });
+    var link = PLAN_LINK(plan, pay);
+    payBtn.textContent = link ? "Pay " + naira(amount) : "Request payment link";
+    payBtn.href = link || FALLBACK;
+    payHint.textContent = link ? "Secure payment. You'll get a receipt by email." : "Send us a DM with your plan and we'll reply with the payment link.";
+    segs.forEach(syncThumb);
+  }
+  function PLAN_LINK(plan, pay){ return (PAY_LINKS[plan] || {})[pay] || ""; }
+  document.querySelectorAll('input[name="plan"], input[name="pay"]').forEach(function(i){ i.addEventListener("change", update); });
+
+  // Plan-card and hero buttons preselect the picker, then the #start anchor scrolls to it.
+  document.querySelectorAll("[data-pick-plan], [data-pick-pay]").forEach(function(a){
+    a.addEventListener("click", function(){
+      if (a.dataset.pickPlan) document.getElementById("plan-" + a.dataset.pickPlan).checked = true;
+      if (a.dataset.pickPay) document.getElementById("pay-" + a.dataset.pickPay).checked = true;
+      update();
+    });
+  });
+
+  var bookBtn = document.getElementById("book-btn");
+  bookBtn.href = BOOKING_LINK || FALLBACK;
+  bookBtn.textContent = BOOKING_LINK ? "Book a call" : "Message us to book";
+  document.getElementById("book-hint").textContent = BOOKING_LINK ? "Pick any open time that suits you." : "We'll reply with open times.";
+  update();
+
+  // Header edge appears only once content scrolls under it; nav marks the section in view.
+  var hdr = document.getElementById("hdr");
+  function onScroll(){ hdr.classList.toggle("scrolled", window.scrollY > 4); }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  if ("IntersectionObserver" in window){
+    var links = {}; document.querySelectorAll("nav.links a").forEach(function(a){ links[a.getAttribute("href").slice(1)] = a; });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting || !links[e.target.id]) return;
+        Object.keys(links).forEach(function(k){ links[k].removeAttribute("aria-current"); });
+        links[e.target.id].setAttribute("aria-current", "true");
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    Object.keys(links).forEach(function(id){ var s = document.getElementById(id); if (s) io.observe(s); });
+  }
+
+  // Hero phone: example video, one line per shot, payoff on the drop.
+  var LINES = ["I almost turned down my biggest client.", "Her budget was half my rate.", "I said yes anyway. One condition:", "“Tell three friends if I deliver.”"];
+  var DUR = 10, CUTS = [0, 2.5, 5, 7.5], DROP = 3;
+  var track = document.getElementById("track"), cap = document.getElementById("cap");
+  var shotno = document.getElementById("shotno"), head = document.getElementById("playhead");
+  for (var t = 0; t <= DUR; t += 1.25){
+    var b = document.createElement("span"); b.className = "beat"; b.style.left = (t / DUR * 100) + "%"; track.appendChild(b);
+  }
+  CUTS.forEach(function(c, i){
+    if (i === 0) return;
+    var m = document.createElement("span"); m.className = "cut" + (i === DROP ? " drop" : "");
+    m.style.left = "calc(" + (c / DUR * 100) + "% - 2px)"; track.appendChild(m);
+  });
+  var shown = 0;
+  function show(i){
+    if (i === shown) return;
+    shown = i; cap.classList.add("swap");
+    setTimeout(function(){
+      cap.textContent = LINES[i];
+      cap.classList.toggle("payoff", i === DROP);
+      shotno.textContent = "Shot " + (i + 1) + " / " + LINES.length;
+      cap.classList.remove("swap");
+    }, 180);
+  }
+  if (reduce) return;
+  var t0 = performance.now(), paused = false;
+  document.addEventListener("visibilitychange", function(){ paused = document.hidden; if (!paused) t0 = performance.now() - lastS * 1000; });
+  var lastS = 0;
+  function frame(now){
+    if (!paused){
+      var s = ((now - t0) / 1000) % DUR; lastS = s;
+      head.style.transform = "translateX(" + (s / DUR * track.clientWidth) + "px)";
+      var i = 0; for (var k = 0; k < CUTS.length; k++) if (s >= CUTS[k]) i = k;
+      show(i);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</html>

@@ -1,0 +1,125 @@
+# Closar studio settings (engine adapted from Gig Radar). Your proof of work (links, facts, prices, email footer) lives in proof.yaml.
+# You can edit this file on the dashboard (Settings tab) or in Notepad.
+port: 8810
+scan_every_min: 60        # free sources (Reddit, Bluesky, Telegram, n8n/Make forums) while the studio runs
+max_age_days: 7           # ignore posts older than this
+score_batch: 30           # posts per Claude scoring call
+sweep_times: ["09:00"]   # LinkedIn / X / Facebook web-search sweep for "need someone" posts
+sweep_days: 21            # search engines index fresh LinkedIn/X/FB posts slowly, so the sweep looks further back
+
+# false = Gig Radar never calls Claude on its own: posts and prospects are scored with word rules and get template
+# messages (proof.yaml › templates). Claude only runs when you press Rewrite, Write follow-up, Find prospects or
+# Search the web. true = the old way (Claude scores and writes everything, plus the 08:00/09:00 searches).
+auto_claude: false
+
+# Claude model for every call. "sonnet" uses much less of your subscription than the default; "haiku" is cheaper still.
+claude_model: sonnet
+
+# Every request says who it is. Never pretend to be a browser.
+user_agent: "ClosarStudio/0.1 (personal lead finder)"
+
+# ---------------------------------------------------------------------------------------------
+# The three menus. Every post, question and prospect is sorted into one of these.
+#   keywords:       words that put something in this menu (cheap check before Claude sees it)
+#   bluesky:        Bluesky searches for "need someone" posts
+#   quick_searches: phrases for the "Search myself" links (LinkedIn, X, Facebook, Instagram)
+#   instagram_tags: hashtags for the Instagram links (no #, no spaces)
+#   prospects:      who the daily prospect search looks for (people who haven't posted anything)
+# ---------------------------------------------------------------------------------------------
+services:
+  business:
+    name: "Business"
+    icon: "B"
+    about: "AI automation, CRM management and AI integration for businesses of any kind: lead capture, instant replies, booking, follow-up emails, quotes and sales follow-up, reviews, AI support bots, onboarding, CRM setup and clean-up, event ticketing flows, win-back campaigns, and automating admin / VA / customer-service tasks (GoHighLevel, n8n, Zapier, Notion, ManyChat, custom code)"
+    keywords: ['automat', 'n8n', 'zapier', 'make.com', 'integromat', 'ai agent', 'workflow', 'chatbot', 'gohighlevel', 'ghl',
+               'airtable', 'crm', 'hubspot', 'salesforce', 'pipedrive', 'zoho', 'notion', 'manychat', 'api integration',
+               'llm', 'virtual assistant', 'data entry', 'lead gen', 'follow up', 'follow-up', 'booking', 'appointments',
+               'no-show', 'email sequence', 'email marketing', 'onboarding', 'customer support', 'support bot', 'reviews',
+               'invoic', 'abandoned cart', 'pipeline', 'leads', 'admin work', 'manual process', 'event tickets']
+    bluesky: ['"looking for an automation"', '"need an n8n"', '"need someone to automate"', '"need help with my CRM"',
+              '"gohighlevel" "looking for"', '"zapier expert"', '"looking for a virtual assistant"', '"follow up with leads"']
+    quick_searches: ['"looking for an n8n"', '"need someone to automate"', '"automation expert" hiring', '"CRM" "looking for someone"',
+                     '"gohighlevel expert"', '"need a virtual assistant"', '"drowning in admin"', '"missed leads"']
+    instagram_tags: [hiringvirtualassistant, automationexpert, smallbusinessowner, n8n]
+    prospects:
+      - "Small and mid-size businesses (any industry) currently hiring an admin, virtual assistant, receptionist, data entry clerk, customer service rep or social media assistant"
+      - "Businesses that take bookings, enquiries or event tickets by phone, DM, WhatsApp or bank transfer, with no online booking, ticketing or follow-up"
+      - "Businesses with a website that has no way to collect emails, no booking calendar, or 'contact us for a quote' as the only next step"
+      - "Online stores (Shopify or WooCommerce) and service businesses with few or unanswered reviews"
+
+  creator:
+    name: "Creator"
+    icon: "C"
+    about: "Posting consistency for creators: one recording turned into daily clips, captioned and scheduled across TikTok, Instagram, YouTube Shorts and X, with a posting calendar and stats"
+    keywords: ['short form', 'short-form', 'reels', 'tiktok', 'youtube shorts', 'shorts', 'video editor', 'reels editor',
+               'content creator', 'repurpose', 'post consistently', 'posting consistently', 'content calendar', 'clips',
+               'grow my page', 'personal brand', 'podcast clips', 'consistency', 'schedule posts']
+    bluesky: ['"looking for a video editor"', '"need a video editor"', '"short form editor"', '"need help posting consistently"',
+              '"struggling to post"', '"podcast clips" editor']
+    quick_searches: ['"looking for a video editor"', '"need a reels editor"', '"short form" editor needed', '"struggling to post consistently"',
+                     '"podcast clips" editor']
+    instagram_tags: [videoeditorneeded, hiringvideoeditor, reelseditor, contentcreatorlife]
+    prospects:
+      - "Creators with an audience (YouTube, TikTok, Instagram, podcast) whose posting has long gaps, bursts then silence, or who post long videos never cut into Shorts or Reels"
+      - "Podcasters and livestreamers whose episodes and streams are never clipped into short videos"
+
+# ---------------------------------------------------------------------------------------------
+# Hunt 1: posts from people who need help. Hunt 3: Reddit questions to answer.
+# ---------------------------------------------------------------------------------------------
+reddit:
+  requests_per_scan: 3    # Reddit's public RSS allows little traffic: subs are combined 10 per request, rotating
+  subs: [forhire, freelance_forhire, jobbit, n8n, automation, zapier, Integromat, AI_Agents, nocode, hubspot, CRM,
+         gohighlevel, smallbusiness, Entrepreneur, sweatystartup, ecommerce, shopify, agency, marketing, realtors,
+         coaching, EventProduction, eventplanning, NewTubers, youtubers, VideoEditing, socialmedia, SocialMediaMarketing,
+         content_marketing, InstagramMarketing, podcasting, CreatorsAdvice, Tiktokhelp]
+  # Notes on a subreddit's self-promotion rules, shown on its question cards. Check each sub's sidebar and add what it says.
+  promo_rules: {}         # e.g. {excel: "No self-promotion at all", Entrepreneur: "Promotion only in the weekly thread"}
+
+answers:                  # Hunt 3 (Reddit presence)
+  max_per_day: 10         # questions Claude writes answers for each day (newest first)
+  max_age_days: 2         # answering an old thread does little
+  promo_share_max: 10     # guideline: at most this % of your answers mention your work (the 90/10 rule)
+
+telegram:                 # public channels only (read through t.me/s/<channel>, no login). Add channel usernames.
+  channels: [tohire_ng]
+
+hn: false   # "Ask HN: Freelancer? Seeking freelancer?" thread: newest one found is October 2025, so it looks stopped
+
+discourse:  # forum sections that are hiring posts only
+  - {name: n8n forum, base: "https://community.n8n.io", category: 13, reply_hint: "Topics are closed to replies. DM the poster on the forum or use the email in the post."}
+  - {name: Make forum, base: "https://community.make.com", category: 50}
+  - {name: Make forum, base: "https://community.make.com", category: 74}
+
+# Cheap word checks before anything reaches Claude.
+hire_words: ['hiring', '[hiring]', '[task]', '[paid]', 'will pay', 'paying', 'paid gig', 'budget', 'freelancer', 'looking to hire',
+             'need someone', 'need somebody', 'looking for someone', 'anyone who can', 'who can do', 'commission', 'contract role']
+need_words: ['looking for', 'need an', 'need a ', 'seeking', 'wanted', 'who can', 'recommend an', 'recommend a ']
+question_words: ['how do i', 'how to', 'how can i', 'is it possible', 'any advice', 'best way', 'what tool', 'which tool',
+                 'any tips', 'should i', 'anyone know', 'help with', 'struggling', 'stuck on', 'what is the best', 'where do i']
+pain_words: ['manually', 'by hand', 'copy and paste', 'copy-paste', 'copy paste', 'spending hours', 'takes hours', 'takes forever',
+             'wasting time', 'waste so much time', 'tedious', 'time consuming', 'time-consuming', 'messy crm', 'no time to post',
+             "can't keep up", 'cant keep up', 'struggling to post', 'post consistently', 'no time to edit', 'hate editing',
+             'overwhelmed', 'burned out', 'burnt out', 'falling behind', 'missed leads', 'no-shows', 'no shows',
+             'forgot to follow up', 'drowning in admin', 'too many dms', 'cant reply', "can't reply", 'losing customers']
+skip_words: ['[for hire]', 'for hire', '(for hire)', 'seeking work', 'open to work', 'my services', 'i offer',
+             'available for work', 'hire me', 'dm me for', 'portfolio review', 'rate my', '[offer]']
+
+# ---------------------------------------------------------------------------------------------
+# Hunt 2: prospects (people who haven't posted) + the CRM
+# ---------------------------------------------------------------------------------------------
+prospects:
+  times: ["08:00"]        # daily prospect search (Claude web search). Set [] to switch it off.
+  one_menu_per_day: true  # menus take turns (Business, then Creator) instead of both daily
+  per_service: 6          # new prospects to look for per run
+  pain_per_day: 10        # Reddit/Bluesky posts describing a problem you solve, turned into prospects per day
+  min_score: 6            # prospects below this score stay out of Today's outreach
+
+outreach:
+  daily_limit: 25         # messages in Today's outreach queue
+  follow_up_days: [3, 7, 14]   # after a first message: follow up after 3 days, then 7, then 14. Then it stops.
+  talks_follow_up_days: 2      # when someone replied / you're in talks: check back after this many days
+
+audit:
+  every_min: 30           # free audits of new contacts that have a website or channel (no Claude)
+  per_run: 15
+  timeout: 20

@@ -1,0 +1,285 @@
+# The problem areas the audit scores. Edit freely: prices, wording, weights.
+#   weight: how much a problem here costs a business (lost leads/sales weigh most). Decides which problem leads a message.
+#   signs:  id, label, strength 1-3. auto: true = the free audit checks it; the rest you tick yourself after checking.
+#   hook:   first line of the message. {evidence} = what was found. cost/fix_line: one line each. also: the "I also noticed" line.
+#   Prices are suggestions (never put in a first message).
+
+business:
+  - id: leads
+    n: 2
+    name: Lead capture
+    weight: 1.5
+    fix: "Free offer, opt-in page, contact saved in the CRM, welcome email"
+    setup: "$500–900"
+    monthly: "$150–300"
+    signs:
+      - {id: no_form, label: "No form or email signup anywhere on the site", strength: 3, auto: true}
+      - {id: no_newsletter, label: "No newsletter or free offer to collect emails", strength: 2, auto: true}
+      - {id: dm_for_info, label: "'DM for info' or 'WhatsApp us' is the only next step", strength: 2, auto: true}
+      - {id: bio_homepage, label: "Bio link goes to a plain homepage or bare Linktree", strength: 1}
+      - {id: ads_plain, label: "Runs ads that land on a page with no opt-in", strength: 2}
+    hook: "I was on your site and noticed {evidence}."
+    cost: "Every visitor who isn't ready to buy today leaves without you ever getting their email."
+    fix_line: "I can set up a simple free offer that collects their email and sends a welcome message automatically."
+    also: "no way to collect visitors' emails"
+    subject: "Visitors leaving without a trace"
+
+  - id: dms
+    n: 3
+    name: DMs and comments
+    weight: 1.5
+    fix: "Keyword auto-reply that sends the link and tags the person in the CRM"
+    setup: "$400–800"
+    monthly: "$150–300"
+    signs:
+      - {id: price_unanswered, label: "'Price?' or 'how do I book?' comments left unanswered", strength: 3}
+      - {id: late_replies, label: "Replies to comments days late", strength: 2}
+      - {id: check_dm, label: "'Check your DM' replies that never come", strength: 2}
+      - {id: no_replies_popular, label: "No replies at all on popular posts", strength: 1}
+    hook: "I saw {evidence} on your posts."
+    cost: "People asking for the price are ready to buy, and every one left waiting goes somewhere else."
+    fix_line: "I can set up instant replies that send them the link and save them as a lead."
+    also: "price questions in the comments waiting for a reply"
+    subject: "Buyers asking in your comments"
+
+  - id: response
+    n: 4
+    name: Response speed
+    weight: 1.5
+    fix: "Instant AI reply, alert to the owner, enquiries routed to the right place"
+    setup: "$500–1,000"
+    monthly: "$150–400"
+    signs:
+      - {id: no_chat, label: "No live chat or instant reply on the site", strength: 1, auto: true}
+      - {id: free_email, label: "Business email is a Gmail or Yahoo address", strength: 2, auto: true}
+      - {id: slow_form, label: "Test enquiry took 24+ hours to answer, or no answer", strength: 3}
+      - {id: sorry_late, label: "'Sorry for the late reply' in public replies", strength: 2}
+    hook: "I noticed {evidence}."
+    cost: "Most people contact a few businesses at once, and the first one to reply usually gets the job."
+    fix_line: "I can make every enquiry get an instant, personal reply and ping you straight away."
+    also: "no instant reply when someone gets in touch"
+    subject: "The first reply usually wins"
+
+  - id: sales
+    n: 7
+    name: Sales follow-up
+    weight: 1.5
+    fix: "Quote and cart follow-up, plus upsell automation"
+    setup: "$700–1,500"
+    monthly: "$200–500"
+    signs:
+      - {id: quote_only, label: "Prices hidden behind 'contact for a quote'", strength: 2, auto: true}
+      - {id: store_no_cart, label: "Online store with no abandoned-cart email tool", strength: 2, auto: true}
+      - {id: pay_transfer, label: "Checkout by DM or bank transfer", strength: 3, auto: true}
+      - {id: no_upsell, label: "No follow-up offer after a purchase", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "People who ask for a quote or leave a cart are close to buying, and without a follow-up most never come back."
+    fix_line: "I can set up automatic follow-ups for quotes and carts so those sales don't slip away."
+    also: "no follow-up for quotes or abandoned carts"
+    subject: "Sales that slip away"
+
+  - id: support
+    n: 9
+    name: Customer support
+    weight: 1.2
+    fix: "AI support bot trained on their FAQs"
+    setup: "$800–2,000"
+    monthly: "$200–500"
+    signs:
+      - {id: no_faq, label: "No FAQ or help page", strength: 1, auto: true}
+      - {id: no_response_reviews, label: "Reviews saying 'no response' or 'can't reach anyone'", strength: 3}
+      - {id: repeat_questions, label: "Same questions asked again and again in comments", strength: 2}
+      - {id: public_complaints, label: "Public complaints on X, Reddit or Google", strength: 2}
+    hook: "I noticed {evidence}."
+    cost: "Answering the same questions by hand eats hours, and slow answers turn into bad reviews."
+    fix_line: "I can build an AI assistant that answers those questions instantly, trained on your own information."
+    also: "the same customer questions being answered by hand"
+    subject: "Answering the same questions all day"
+
+  - id: onboarding
+    n: 10
+    name: Onboarding and delivery
+    weight: 1.2
+    fix: "Payment, contract, welcome and access all automatic"
+    setup: "$800–1,800"
+    monthly: "$200–400"
+    signs:
+      - {id: no_access, label: "Reviews: 'didn't get access' or 'waited for a reply' after buying", strength: 3}
+      - {id: manual_delivery, label: "Products or courses delivered by hand", strength: 2}
+      - {id: no_welcome, label: "No welcome email after buying (tested)", strength: 2}
+      - {id: pdf_contracts, label: "Contracts sent as PDFs by email", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "The first hours after someone pays decide whether they trust you, and manual steps cause the delays."
+    fix_line: "I can make payment, contract, welcome and access happen automatically the moment someone pays."
+    also: "manual steps after someone pays"
+    subject: "The moment after someone pays"
+
+  - id: hiring
+    n: 12
+    name: Hiring pains
+    weight: 1.2
+    fix: "Automate the tasks of the role they're hiring for"
+    setup: "$1,000–2,500"
+    monthly: "$300–800"
+    signs:
+      - {id: hiring_admin, label: "Hiring an admin, VA, receptionist, data entry or customer service role", strength: 3, auto: true}
+      - {id: overwhelmed, label: "'Overwhelmed' or 'drowning in admin' posts", strength: 2}
+      - {id: owner_everything, label: "Owner visibly doing every task", strength: 1}
+    hook: "I saw {evidence}."
+    cost: "A lot of what that role does day to day (replies, data entry, scheduling, follow-ups) can run on its own."
+    fix_line: "I can automate those tasks so you hire for the work that really needs a person, or don't need to hire at all."
+    also: "admin work that could run on its own"
+    subject: "Before you hire for that role"
+
+  - id: events
+    n: 13
+    name: Events
+    weight: 1.2
+    fix: "Tickets into the CRM, reminders, recap content, list for the next event"
+    setup: "$700–1,500"
+    monthly: "$250–500 per event"
+    signs:
+      - {id: event_transfer, label: "Tickets sold by DM or bank transfer", strength: 3, auto: true}
+      - {id: event_no_tool, label: "Runs events with no ticketing system", strength: 2, auto: true}
+      - {id: no_recap, label: "No recap content after events", strength: 2}
+      - {id: flyer_only, label: "Flyer-only promotion", strength: 1}
+      - {id: no_next_list, label: "No list kept for the next event", strength: 2}
+    hook: "I saw {evidence}."
+    cost: "Selling tickets by hand caps how many you can sell, and everyone who came is lost once it ends."
+    fix_line: "I can set up tickets that sell themselves, reminders before the day, and a list ready for your next event."
+    also: "event tickets handled by hand"
+    subject: "Your next event"
+
+  - id: booking
+    n: 5
+    name: Booking
+    weight: 1.0
+    fix: "Online calendar with reminders"
+    setup: "$400–900"
+    monthly: "$150–300"
+    signs:
+      - {id: call_to_book, label: "'Call or WhatsApp to book' with no online calendar", strength: 3, auto: true}
+      - {id: no_calendar, label: "Takes appointments but has no booking link", strength: 2, auto: true}
+      - {id: noshow_reviews, label: "Reviews mentioning no-shows or double bookings", strength: 2}
+      - {id: form_booking, label: "Bookings through a Google Form", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "Every booking that needs a call or a chat is one more chance for the customer to give up."
+    fix_line: "I can add online booking with automatic reminders, so people book themselves and actually show up."
+    also: "no way to book online"
+    subject: "Letting customers book themselves"
+
+  - id: content
+    n: 1
+    name: Content
+    weight: 1.0
+    fix: "Repurposing pipeline: one recording becomes 10+ clips, captioned and scheduled"
+    setup: "$600–1,200"
+    monthly: "$300–600"
+    signs:
+      - {id: post_gap, label: "Long gaps between posts", strength: 3, auto: true}
+      - {id: no_socials, label: "No social media linked from the site", strength: 1, auto: true}
+      - {id: events_no_content, label: "Events or launches with little content about them", strength: 3}
+      - {id: flyers_only, label: "Only flyers or reposts, no video", strength: 2}
+      - {id: low_engagement, label: "Big following, low engagement", strength: 1}
+      - {id: one_platform, label: "Active on one platform, dead on others", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "When a page goes quiet, people forget you, even the ones who were ready to buy."
+    fix_line: "I can turn one recording a week into daily posts, captioned and scheduled for you."
+    also: "long gaps between posts"
+    subject: "Keeping your page active"
+
+  - id: followup
+    n: 6
+    name: Follow-up emails
+    weight: 1.0
+    fix: "Automatic email sequence (5–10 emails)"
+    setup: "$600–1,200"
+    monthly: "$200–400"
+    signs:
+      - {id: signup_silence, label: "Signed up and got nothing, or one email (tested)", strength: 3}
+      - {id: stale_newsletter, label: "Newsletter not sent for months", strength: 2}
+      - {id: manual_freebie, label: "Free offer delivered by hand", strength: 1}
+    hook: "I signed up and noticed {evidence}."
+    cost: "People who sign up are warm, and without follow-up they go cold within days."
+    fix_line: "I can write and set up a short email sequence that keeps them warm until they're ready."
+    also: "no follow-up after someone signs up"
+    subject: "After someone signs up"
+
+  - id: reviews
+    n: 8
+    name: Reviews
+    weight: 1.0
+    fix: "Automatic review requests, AI-drafted replies"
+    setup: "$400–700"
+    monthly: "$150–250"
+    signs:
+      - {id: no_testimonials, label: "No testimonials or reviews shown on the site", strength: 1, auto: true}
+      - {id: few_reviews, label: "Few Google reviews for the size of the business", strength: 2}
+      - {id: unanswered_bad, label: "Bad reviews with no reply", strength: 3}
+      - {id: old_reviews, label: "Newest review is months old", strength: 2}
+    hook: "I noticed {evidence}."
+    cost: "Most customers check reviews before they buy, and few or unanswered reviews quietly cost sales."
+    fix_line: "I can set up automatic review requests after every sale and draft replies to every review."
+    also: "reviews that could be working harder for you"
+    subject: "Your reviews"
+
+  - id: crm
+    n: 11
+    name: CRM and data
+    weight: 1.0
+    fix: "CRM setup or cleanup: tags, segments, pipeline"
+    setup: "$800–2,500"
+    monthly: "$300–800"
+    signs:
+      - {id: generic_emails, label: "'Hi there' mass emails, wrong names", strength: 2}
+      - {id: duplicate_promos, label: "Same promo sent twice, repeat customers treated as new", strength: 2}
+      - {id: mixed_answers, label: "Different answers on different channels", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "When customer data is scattered, messages feel generic and good customers get treated like strangers."
+    fix_line: "I can set up or clean your CRM so every message goes to the right people with the right details."
+    also: "customer data that could be better organised"
+    subject: "Your customer list"
+
+  - id: winback
+    n: 14
+    name: Win-back
+    weight: 1.0
+    fix: "Win-back campaign at 60–90 days, plus a referral offer"
+    setup: "$400–800"
+    monthly: "$150–300"
+    signs:
+      - {id: silent_after, label: "Customers never hear from them after buying", strength: 2}
+      - {id: no_referral, label: "No loyalty or referral offer", strength: 1, auto: true}
+    hook: "I noticed {evidence}."
+    cost: "Past customers are the easiest sale you'll ever make, and most businesses never ask them back."
+    fix_line: "I can set up a win-back campaign that brings past customers back automatically."
+    also: "no plan to bring past customers back"
+    subject: "Your past customers"
+
+creator:
+  - id: consistency
+    n: 0
+    name: Posting consistency
+    weight: 1.0
+    fix: "One recording becomes daily clips, captioned and scheduled across every platform"
+    setup: "Starter $49/mo · Consistent $99/mo · Pro $179/mo · one-off $29"
+    monthly: ""
+    signs:
+      - {id: gap7, label: "7+ days since the last post", strength: 3, auto: true}
+      - {id: bursty, label: "Bursts of posts, then silence", strength: 2, auto: true}
+      - {id: few_posts, label: "Fewer than 8 posts in the last 30 days", strength: 2, auto: true}
+      - {id: views_falling, label: "Views falling over the recent posts", strength: 2, auto: true}
+      - {id: no_shorts, label: "Long videos never cut into Shorts or Reels", strength: 2}
+      - {id: dead_platforms, label: "Active on one platform, dead or missing on others", strength: 2}
+      - {id: random_times, label: "Posting at random times", strength: 1}
+      - {id: im_back, label: "'Sorry I've been gone' or 'I'm back' posts", strength: 2}
+      - {id: streams_unclipped, label: "Livestreams or podcasts never clipped", strength: 2}
+      - {id: same_format, label: "Same format every post, no captions or B-roll", strength: 1}
+      - {id: fans_asking, label: "Fans asking 'when's the next video?'", strength: 2}
+      - {id: old_bio, label: "Bio or Linktree promoting an old launch", strength: 1}
+      - {id: no_list, label: "Big audience, no newsletter or community of their own", strength: 1}
+    hook: "I noticed {evidence}."
+    cost: "The algorithm rewards showing up often, and every quiet week costs reach you've already earned."
+    fix_line: "I can keep you posting every day from what you already record: clips cut, captioned and scheduled for you."
+    also: "posting gaps"
+    subject: "Keeping your page posting"
