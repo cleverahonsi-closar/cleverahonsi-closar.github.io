@@ -1,10 +1,12 @@
 """Hunt 2: prospects, people or businesses who fit a menu but haven't posted asking for help.
 Found by a daily Claude web search per menu, or from posts where someone describes a problem you solve.
 Claude scores each one and drafts a DM and an email; you send them yourself."""
+import re
 import threading
 import urllib.parse
 
 import ai
+import audit
 import crm
 import free
 from common import cfg, db, log, now, proof, services, set_state
@@ -42,25 +44,59 @@ def find(service_id):
         if d["email"] and "@" not in d["email"]:
             d["email"] = ""
         d["service"] = service_id
-        _, created = crm.add(d, "prospect", source_ref=f"web search {service_id}")
+        if not audit.is_own_site(d["website"]):
+            d["website"] = ""
+        if not audit.auditable(d["profile_url"]):
+            d["profile_url"] = ""
+        target = (d["profile_url"] or d["website"]) if service_id == "creator" else d["website"]
+        if not target:   # no own site (business) / channel (creator) = nothing real to score: not a lead
+            log("prospects", f"skipped {d['name'] or '?'}: no own website/channel")
+            continue
+        cid, created = crm.add(d, "prospect", source_ref=f"web search {service_id}")
+        if created:
+            try:   # score by the real outside audit (14 areas), not word rules
+                audit.apply(cid, audit.run(target, "creator" if service_id == "creator" else None))
+            except Exception as e:
+                log("prospects", f"audit of {cid} failed: {e}")
         added += created
     log("prospects", f"{service_id}: {len(found)} found, {added} new")
     return added
 
 
+URL_RE = re.compile(r"https?://[^\s<>()\[\]\"']+|\b(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|co|io|net|org|shop|store|biz|ng|uk|au|ca|us|app|studio|agency)(?:/[^\s<>()\[\]\"']*)?", re.I)
+
+
+def own_links(text):
+    """(own website, own channel) linked in a post, or "" for each. Forum/social/job-board links don't count."""
+    site = channel = ""
+    for u in URL_RE.findall(text or ""):
+        u = u.rstrip(".,;:!?*")
+        if not site and audit.is_own_site(u):
+            site = audit._norm(u)
+        elif not channel and audit.is_channel(u):
+            channel = audit._norm(u)
+    return site, channel
+
+
 def from_post(post):
-    """Someone described a problem you solve (no hiring words): they become a cold prospect, the post is the evidence."""
+    """Someone described a problem you solve. They become a lead ONLY if the post links their own website (business)
+    or their own channel/site (creator) - a forum username alone is not a lead. Returns the contact id or None."""
     author = post.get("author") or ""
-    profile = ""
-    if post.get("platform") == "Reddit" and author:
-        profile = f"https://www.reddit.com/user/{urllib.parse.quote(author)}"
-    elif post.get("platform") == "Bluesky" and author:
-        profile = f"https://bsky.app/profile/{author}"
-    d = {"service": post.get("service") or post.get("guess"), "name": author, "handle": author,
-         "platform": post.get("platform"), "profile_url": profile, "dm_url": post.get("dm_url") or "",
+    service = post.get("service") or post.get("guess")
+    site, channel = own_links((post.get("title") or "") + "\n" + (post.get("text") or ""))
+    if not (site or (service == "creator" and channel)):
+        return None
+    d = {"service": service, "name": author, "handle": author, "platform": post.get("platform"),
+         "website": site, "profile_url": channel, "dm_url": post.get("dm_url") or "",
          "evidence": ((post.get("title") or "") + "\n" + (post.get("text") or "")).strip()[:3000],
          "evidence_url": post.get("url") or ""}
-    cid, _ = crm.add(d, "pain", source_ref=post["id"])
+    cid, created = crm.add(d, "pain", source_ref=post["id"])
+    if created:
+        try:   # score it by its real site/channel straight away, not by word rules
+            audit.apply(cid, audit.run(channel if service == "creator" and channel else site,
+                                       "creator" if service == "creator" else None))
+        except Exception as e:
+            log("prospects", f"audit of pain lead {cid} failed: {e}")
     return cid
 
 

@@ -200,9 +200,10 @@ def pain_queue():
         rows = [dict(r) for r in con.execute(
             "SELECT * FROM posts WHERE stage='queued' AND kind='pain' ORDER BY posted_at DESC LIMIT ?", (max(left, 0),))]
     for r in rows:
-        cid = prospects.from_post(r)
+        cid = prospects.from_post(r)   # None when the post links no own website/channel: not a lead
         with db() as con:
-            con.execute("UPDATE posts SET stage='scored', verdict='prospect', contact_id=? WHERE id=?", (cid, r["id"]))
+            con.execute("UPDATE posts SET stage='scored', verdict=?, contact_id=? WHERE id=?",
+                        ("prospect" if cid else "no_site", cid, r["id"]))
     return len(rows)
 
 

@@ -272,11 +272,38 @@ def _name_of(h, url):
 
 # ---------- the audit ----------
 
+CHANNEL_HOSTS = ("youtube.com", "tiktok.com", "instagram.com", "bsky.app", "twitch.tv")
+# Profiles on these sites are not the lead's own website: auditing them scores the platform's page, not the lead.
+NOT_SITE_HOSTS = ("reddit.com", "redd.it", "t.me", "telegram.", "x.com", "twitter.com", "facebook.com", "fb.com",
+                  "linkedin.com", "threads.net", "medium.com", "substack.com", "github.com", "imgur.com", "discord.",
+                  "upwork.com", "fiverr.com", "freelancer.com", "onlinejobs.ph", "jobberman.com", "indeed.com",
+                  "glassdoor.", "psychologytoday.com", "yelp.com", "google.com", "goo.gl", "linktr.ee", "wa.me",
+                  "whatsapp.com", "eventbrite.", "wikipedia.org")
+
+
+def _host(url):
+    return urllib.parse.urlparse(_norm(url)).netloc.lower().removeprefix("www.")
+
+
+def _on(host, hosts):
+    return any(host == h or host.endswith("." + h) or (h.endswith(".") and h in host) for h in hosts)
+
+
+def is_channel(url):
+    return bool(url) and _on(_host(url), CHANNEL_HOSTS)
+
+
+def is_own_site(url):
+    """True for a lead's own website (not a social/forum/job-board/directory profile)."""
+    return bool(url) and bool(_host(url)) and not _on(_host(url), CHANNEL_HOSTS + NOT_SITE_HOSTS)
+
+
+def auditable(url):
+    return is_own_site(url) or is_channel(url)
+
+
 def kind_of(url):
-    u = url.lower()
-    if any(s in u for s in ("youtube.com", "tiktok.com", "instagram.com", "bsky.app", "twitch.tv")):
-        return "creator"
-    return "business"
+    return "creator" if is_channel(url) else "business"
 
 
 def run(url, kind=None):
@@ -285,7 +312,11 @@ def run(url, kind=None):
     kind = kind or kind_of(url)
     found, stats, notes, info, name, closed = [], [], [], {"emails": [], "socials": {}}, "", []
     host = urllib.parse.urlparse(url).netloc.lower()
-    if kind == "business" and not any(s in host for s in ("youtube.com", "tiktok.com", "instagram.com", "bsky.app")):
+    if not auditable(url):
+        return {"kind": kind, "name": "", "website": "", "profile_url": "", "socials": {}, "emails": [], "signs": [],
+                "stats": [], "notes": [f"{_host(url)} is a profile on someone else's platform, not their own site or"
+                                       " channel, so there is nothing to audit. Add their real website."]}
+    if kind == "business" and not is_channel(url):
         pages = _site_pages(url)
         home = pages.get(url, "")
         if not home:
@@ -431,7 +462,10 @@ def audit_pending(limit=None):
         rows = con.execute("SELECT id, website, profile_url, service FROM contacts WHERE audit IS NULL AND stage='cold'"
                            " AND (COALESCE(website,'')<>'' OR COALESCE(profile_url,'')<>'') LIMIT ?", (limit,)).fetchall()
     for r in rows:
-        url = r["website"] or r["profile_url"]
+        url = next((u for u in (r["website"], r["profile_url"]) if auditable(u or "")), None)
+        if not url:   # only a forum/social/job-board profile: no own site to judge, so no score
+            apply(r["id"], run(r["website"] or r["profile_url"]))
+            continue
         try:
             apply(r["id"], run(url, "creator" if r["service"] == "creator" else None))
         except Exception as e:
