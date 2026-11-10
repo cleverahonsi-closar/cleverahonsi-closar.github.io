@@ -423,8 +423,8 @@ def message(c, kind, ranked):
     ev = next((s.get("evidence") for s in main["signs"] if s.get("evidence")), "") or a["signs"][0]["label"].lower()
     links = (proof().get(kind) or {}).get("links") or []
     link = next((l.get("url") for l in links if isinstance(l, dict) and l.get("url")), "") or "[ADD LINK]"
-    if "cleverahonsi-closar.github.io" in link and "#" not in link:   # deep link to the matching fix card on the site
-        link = link.rstrip("/") + "/" + ("creators.html" if kind == "creator" else f"services.html#fix-{main['area']}")
+    if "cleverahonsi-closar.github.io" in link and "#" not in link:   # landing page; ?fix= pre-picks their problem in the audit form
+        link = link.rstrip("/") + "/" + ("" if kind == "creator" else f"?fix={main['area']}")
     if c.get("handle") or kind == "creator":
         hi = _first(c.get("handle") or c.get("name"))
     else:   # a business found by its site: greet the team, not the brand as if it were a person

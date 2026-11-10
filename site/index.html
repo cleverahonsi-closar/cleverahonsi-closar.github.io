@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Closar · AI automation and CRM systems</title>
-<meta name="description" content="Closar builds the systems that reply, book, follow up and keep your CRM clean, so customers stop slipping away. AI automation, CRM and AI integration by Clever Ahonsi.">
-<meta property="og:title" content="Closar · AI automation and CRM systems">
-<meta property="og:description" content="Closar builds the systems that reply, book, follow up and keep your CRM clean, so customers stop slipping away. AI automation, CRM and AI integration by Clever Ahonsi.">
+<title>Closar · Never miss another enquiry</title>
+<meta name="description" content="Closar sets up the automations that reply to every enquiry in seconds, book the appointment and follow up for you. Start with a free audit.">
+<meta property="og:title" content="Closar · Never miss another enquiry">
+<meta property="og:description" content="Free audit: see where customers slip away, and the fix.">
 <meta property="og:image" content="https://cleverahonsi-closar.github.io/assets/closar-intro.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0D1311">
@@ -11,20 +11,188 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="assets/site.css">
-</head>
-<body data-page="index">
+<style>
+/* One path: problem → how it's fixed → what you get → proof → free audit form. */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --ink:#10221C; --muted:#56635D; --line:#DDE2DC; --line-strong:#C5CDC6;
+  --accent:#177D52; --accent-ink:#FFFFFF; --accent-soft:#E3F1E9; --node:#3DBE83;
+  --warn:#A87800; --warn-soft:#FBF0CC;
+  --card-dark:#0E1814; --card-dark-fg:#E8EFEA;
+  --glass:rgba(243,244,241,.8);
+  --shadow-sm:0 1px 2px rgba(16,34,28,.06), 0 2px 8px rgba(16,34,28,.04);
+  --shadow-lg:0 2px 4px rgba(16,34,28,.04), 0 24px 48px -20px rgba(16,34,28,.22);
+  --display:"Be Vietnam Pro", -apple-system, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --body:-apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --wrap:68rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
+  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A;
+  --warn:#F2C230; --warn-soft:#3A3014; --card-dark:#050807;
+  --glass:rgba(13,19,17,.78);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
+  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A;
+  --warn:#F2C230; --warn-soft:#3A3014; --card-dark:#050807;
+  --glass:rgba(13,19,17,.78);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
+  color-scheme:dark}
 
-<header class="top" id="hdr">
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:4.5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+p{margin:0}
+a{color:inherit}
+img,video{max-width:100%;height:auto;display:block}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.04;letter-spacing:-.034em}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;line-height:1.08;letter-spacing:-.027em}
+h3{font-size:1.1rem;font-weight:700;line-height:1.25;letter-spacing:-.01em}
+.eyebrow{font:500 .74rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:1.12rem;line-height:1.55;color:var(--muted);max-width:56ch}
+.muted{color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font:600 1rem/1.2 var(--body);padding:.95em 1.5em;border-radius:999px;text-decoration:none;border:0;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;
+  background:var(--accent);color:var(--accent-ink);transition:transform 160ms var(--ease-out), background-color 200ms ease}
+.btn:active{transform:scale(.97);transition-duration:100ms}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}}
+
+header.top{position:sticky;top:0;z-index:5;background:var(--glass);backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.75rem}
+header.top .btn{padding:.62em 1.1em;font-size:.92rem}
+.wm{display:inline-flex;align-items:center;font:800 1rem/1 var(--display);letter-spacing:.22em;padding:.55em .5em .55em .72em;border:2px solid currentColor;color:var(--ink);text-decoration:none}
+
+section{padding-block:5rem}
+.band{background:var(--surface)}
+.head{display:flex;flex-direction:column;gap:.85rem;margin-bottom:2.4rem;max-width:44rem}
+
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:3rem;align-items:center;padding-block:3.5rem 4rem}
+.hero-copy{display:flex;flex-direction:column;gap:1.2rem;min-width:0}
+.hero-note{font-size:.9rem;color:var(--muted)}
+.hero-note b{color:var(--ink);font-weight:600}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:2.2rem 3rem}}
+@keyframes lift{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.reel{position:relative;border-radius:22px;overflow:hidden;background:#0D1311;box-shadow:var(--shadow-lg);aspect-ratio:16/9;animation:lift 650ms var(--ease-out) 100ms both;min-width:0}
+.reel video{width:100%;height:100%;object-fit:cover}
+.reel .play{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem;border:0;background:linear-gradient(180deg,rgba(13,19,17,0) 55%,rgba(13,19,17,.6));color:#fff;cursor:pointer;font:600 .95rem/1 var(--body);touch-action:manipulation}
+.reel .play span{display:inline-flex;align-items:center;gap:.65rem;padding:.45rem 1.1rem .45rem .45rem;border-radius:999px;background:rgba(13,19,17,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+.reel .play i{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--node);display:grid;place-items:center;transition:transform 200ms var(--ease-out)}
+.reel .play i svg{width:1rem;height:1rem;margin-left:.15rem;fill:#06130D}
+.reel .play:active i{transform:scale(.94)}
+.reel.playing .play{display:none}
+
+/* problem */
+.leaks{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.leak{display:flex;flex-direction:column;gap:.5rem;padding:1.3rem;border-radius:18px;background:var(--bg);min-width:0}
+.leak::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:var(--warn)}
+.leak p{color:var(--muted);font-size:.95rem}
+@media (max-width:960px){.leaks{grid-template-columns:1fr 1fr}}
+@media (max-width:540px){.leaks{grid-template-columns:1fr}}
+
+/* how */
+.how{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.steps-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1.4rem;counter-reset:s}
+.steps-list li{display:grid;grid-template-columns:2.4rem 1fr;gap:1rem;counter-increment:s}
+.steps-list li::before{content:counter(s);width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font:700 1rem/1 var(--display);background:var(--accent-soft);color:var(--accent)}
+.steps-list p{color:var(--muted);font-size:.97rem;margin-top:.3rem}
+@media (max-width:900px){.how{grid-template-columns:1fr}}
+.sys{background:var(--card-dark);color:var(--card-dark-fg);border-radius:24px;padding:1.3rem;box-shadow:var(--shadow-lg);min-width:0}
+.sys-top{display:flex;justify-content:space-between;align-items:center;font:500 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:1rem}
+.sys-top i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3DBE83;margin-right:.45rem}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.step{display:grid;grid-template-columns:1.6rem 1fr auto;gap:.7rem;align-items:center;padding:.7rem .8rem;border-radius:12px;background:rgba(255,255,255,.04);opacity:.38;transition:opacity 260ms var(--ease-out), background-color 260ms ease, transform 260ms var(--ease-out)}
+.step.on{opacity:1;background:rgba(61,190,131,.12)}
+.step.now{transform:translateX(4px)}
+.step .dot{width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;font:500 .7rem/1 var(--mono);background:rgba(255,255,255,.08)}
+.step.on .dot{background:#3DBE83;color:#06130D}
+.step b{font-weight:600;font-size:.95rem}
+.step small{display:block;font-size:.78rem;opacity:.65;margin-top:.1rem}
+.step .t{font:500 .7rem/1 var(--mono);opacity:.6;white-space:nowrap}
+
+/* what you get */
+.get{display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;align-items:start}
+.checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem}
+.checks li{display:grid;grid-template-columns:1.5rem 1fr;gap:.6rem;font-size:.98rem}
+.checks li::before{content:"✓";font-weight:800;color:var(--accent)}
+.checks li span{color:var(--muted);display:block;font-size:.9rem;margin-top:.15rem}
+.price{padding:1.6rem;border-radius:22px;background:var(--bg);display:flex;flex-direction:column;gap:.7rem}
+.price .amt{font:800 2rem/1.05 var(--display);letter-spacing:-.03em}
+.price .amt small{display:block;margin-top:.45rem;font:500 .9rem/1.3 var(--body);color:var(--muted);letter-spacing:0}
+.price p{color:var(--muted);font-size:.95rem}
+.price .btn{align-self:flex-start;margin-top:.4rem}
+@media (max-width:900px){.get{grid-template-columns:1fr}}
+@media (max-width:560px){.checks{grid-template-columns:1fr}}
+
+/* proof */
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.proof figure{margin:0;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px var(--line), var(--shadow-sm);background:#fff}
+.proof .copy{display:flex;flex-direction:column;gap:1rem;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.stat{padding:.9rem;border-radius:14px;background:var(--surface);box-shadow:var(--shadow-sm)}
+.stat strong{display:block;font:800 1.5rem/1 var(--display);letter-spacing:-.03em;color:var(--accent)}
+.stat span{font-size:.8rem;color:var(--muted);line-height:1.35;display:block;margin-top:.35rem}
+.me{display:flex;align-items:center;gap:1rem;padding-top:1rem;border-top:1px solid var(--line)}
+.me img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none}
+.me p{font-size:.93rem;color:var(--muted)}
+.me b{color:var(--ink)}
+@media (max-width:900px){.proof{grid-template-columns:1fr}}
+@media (max-width:420px){.stats{grid-template-columns:1fr}}
+
+/* form */
+.final{background:var(--card-dark);color:var(--card-dark-fg)}
+.final .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+.final h2{color:#fff}
+.final .lede{color:#A9B7B0;margin-top:1rem}
+.final ul{list-style:none;margin:1.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.55rem;font-size:.95rem;color:#C9D4CE}
+.final ul li{display:grid;grid-template-columns:1.2rem 1fr;gap:.5rem}
+.final ul li::before{content:"✓";color:#3DBE83;font-weight:700}
+form.audit{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.6rem;border-radius:22px;background:#111A16;box-shadow:0 0 0 1px rgba(255,255,255,.07)}
+.field{display:flex;flex-direction:column;gap:.4rem;min-width:0}
+.field.full{grid-column:1 / -1}
+.field label{font-size:.85rem;font-weight:600;color:#DDE6E1}
+.field label small{font-weight:400;color:#8FA098}
+.field input,.field select,.field textarea{font:400 16px/1.4 var(--body);color:#E8EEEA;background:#0A100D;border:1.5px solid #2A3631;border-radius:12px;padding:.75em .9em;width:100%;min-width:0;transition:border-color 150ms ease}
+.field textarea{min-height:5.5rem;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#3DBE83}
+.field input:user-invalid{border-color:#F97066}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
+.form-foot .btn{background:#3DBE83;color:#06130D}
+.form-foot p{font-size:.82rem;color:#8FA098;flex:1 1 14rem}
+.form-foot a{color:#C9D4CE}
+.status{grid-column:1 / -1;font-size:.92rem;border-radius:12px;padding:.8rem 1rem;display:none}
+.status.ok{display:block;background:rgba(61,190,131,.14);color:#BFEBD5}
+.status.err{display:block;background:rgba(249,112,102,.12);color:#FBC6C1}
+@media (max-width:900px){.final .wrap{grid-template-columns:1fr}}
+@media (max-width:560px){form.audit{grid-template-columns:1fr;padding:1.1rem}}
+
+footer{padding-block:2rem;font-size:.85rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem}
+footer nav{display:flex;gap:1rem}
+footer .wm{font-size:.8rem;border-width:1.5px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reel{animation:none}
+  .btn:active{transform:none}
+  .step,.step.now{transition:none;transform:none}
+}
+@media (prefers-reduced-transparency:reduce){header.top{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
   <div class="wrap">
-    <a class="wm" href="./">CLOSAR</a>
-    <nav class="links" aria-label="Pages">
-      <a href="work.html">Work</a>
-      <a href="services.html">Services</a>
-      <a href="creators.html">Creators</a>
-      <a href="about.html">About</a>
-    </nav>
-    <a class="btn btn-primary" href="contact.html">Free audit</a>
+    <a class="wm" href="#top">CLOSAR</a>
+    <a class="btn" href="#audit">Free audit</a>
   </div>
 </header>
 
@@ -32,14 +200,11 @@
   <section class="hero" style="padding-block:0">
     <div class="wrap">
       <div class="hero-copy">
-        <span class="eyebrow rise">AI automation · CRM · AI integration</span>
-        <h1 class="rise">Stop losing customers to slow replies and forgotten follow-ups.</h1>
-        <p class="lede rise">I build the systems that answer every enquiry in seconds, book the call, follow up on their own and keep your CRM clean. For small businesses and creators in the US, UK, Canada and Australia.</p>
-        <div class="cta-row rise">
-          <a class="btn btn-primary" href="contact.html">Get a free audit</a>
-          <a class="btn btn-ghost" href="work.html">See the work</a>
-        </div>
-        <div class="promise rise"><span>Reply within one working day</span><span>Fixed price before work starts</span><span>Built in your own accounts</span></div>
+        <span class="eyebrow">For service businesses · US, UK, Canada, Australia</span>
+        <h1>Never miss another enquiry.</h1>
+        <p class="lede">Customers who wait go somewhere else. I set up automations that answer them in seconds, book the appointment and follow up on their own, inside the tools you already use.</p>
+        <div><a class="btn" href="#audit">Get my free audit</a></div>
+        <p class="hero-note">Free, no call needed. <b>Back to you within one working day.</b></p>
       </div>
       <div class="reel" id="reel">
         <video id="reel-video" preload="none" playsinline poster="assets/closar-intro.jpg" width="1280" height="720">
@@ -50,78 +215,204 @@
     </div>
   </section>
 
-  <div class="clients" aria-label="Clients">
-    <div class="wrap">
-      <span class="k">Systems built for</span>
-      <b>Conservatory Ballet<small>Ballet school · Virginia, US</small></b>
-      <b>The Media Chic<small>Marketing educator · TikTok</small></b>
-      <b>ABRB Consulting, LLC<small>Business consultancy · Virginia, US</small></b>
-    </div>
-  </div>
-
-  <section>
+  <section class="band">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">Explore</span>
-        <h2>See the work, pick a fix, or start posting daily.</h2>
+        <span class="eyebrow">Sound familiar?</span>
+        <h2>Most lost customers never complain. They just book someone faster.</h2>
       </div>
-      <div class="teasers">
-        <a class="teaser" href="work.html"><div class="pic"><img src="assets/work/impact.jpg" alt="Impact report for Conservatory Ballet" loading="lazy" width="1800" height="1012"></div><div class="txt"><span class="eyebrow">Work</span><h3>9 systems for a ballet school in one month</h3><p>Process maps, live workflows and the reports clients got, plus weekly content for The Media Chic.</p><span class="go">See the work →</span></div></a>
-        <a class="teaser" href="services.html"><div class="pic"><img src="assets/ticket-engine.png" alt="Ticket Sales Engine workflow" loading="lazy" width="946" height="781"></div><div class="txt"><span class="eyebrow">Services</span><h3>14 fixes, each with a fixed price</h3><p>Instant replies, online booking, review replies, follow-ups, CRM clean-up, win-back and more.</p><span class="go">See all 14 fixes →</span></div></a>
-        <a class="teaser" href="creators.html"><div class="pic"><img src="assets/work/mediachic-3.jpg" alt="A delivered Media Chic video" loading="lazy" width="540" height="960" style="object-position:center 20%"></div><div class="txt"><span class="eyebrow">Creators</span><h3>Daily clips from one recording</h3><p>Cut, captioned and scheduled across TikTok, Instagram, Shorts and X, from $49 a month.</p><span class="go">See creator plans →</span></div></a>
+      <div class="leaks">
+        <div class="leak"><h3>Replies the next day</h3><p>An enquiry comes in at 9pm. By the time you answer, they've gone with whoever replied first.</p></div>
+        <div class="leak"><h3>Booking by phone tag</h3><p>No online calendar and no reminders, so slots go empty and no-shows pile up.</p></div>
+        <div class="leak"><h3>Quotes left hanging</h3><p>One reply, then nothing. Nobody checks back, so the job never happens.</p></div>
+        <div class="leak"><h3>Reviews left to chance</h3><p>Happy customers are never asked. The one unhappy review sits there with no answer.</p></div>
       </div>
     </div>
   </section>
-  <section class="band">
-    <div class="wrap live">
+
+  <section>
+    <div class="wrap how">
       <div>
-        <div class="head" style="margin-bottom:1.6rem">
-          <span class="eyebrow">What a fixed system looks like</span>
-          <h2>One enquiry, handled without you touching it.</h2>
+        <div class="head" style="margin-bottom:1.8rem">
+          <span class="eyebrow">How it works</span>
+          <h2>Find the leak. Fix it once. Let it run.</h2>
         </div>
-        <div class="rules">
-          <div class="rule"><h3>Fail-safe first</h3><p>AI output is checked before it reaches a customer. If something breaks, it's logged and you're told.</p></div>
-          <div class="rule"><h3>Consent built in</h3><p>Opt-ins, opt-outs and separate marketing consent, set up to CAN-SPAM, TCPA and GDPR rules.</p></div>
-          <div class="rule"><h3>One problem, one fix</h3><p>You buy the fix for the problem that costs you most, and you see it working.</p></div>
-          <div class="rule"><h3>Your accounts, your data</h3><p>Built in your own tools, documented and handed over. You're never locked in.</p></div>
-        </div>
+        <ol class="steps-list">
+          <li><div><h3>Free audit</h3><p>I check your website, reviews and booking from the outside and send you the problems costing you most, with proof.</p></div></li>
+          <li><div><h3>One fix, one fixed price</h3><p>You choose what to fix first and see the price and plan before any work starts.</p></div></li>
+          <li><div><h3>Built, tested, handed over</h3><p>Set up in your own accounts, tested on real cases, and documented so it's yours for good.</p></div></li>
+        </ol>
       </div>
-      <div class="sys" aria-label="Example: one new enquiry moving through an automated system">
+      <div class="sys" aria-label="Example: one new enquiry handled automatically">
         <div class="sys-top"><span><i></i>Example · one new enquiry</span><span id="sys-clock">0:00</span></div>
         <ol class="steps" id="steps">
           <li class="step"><span class="dot">1</span><span><b>Form filled on your site</b><small>Saved as a contact in your CRM</small></span><span class="t">0:00</span></li>
-          <li class="step"><span class="dot">2</span><span><b>Instant personal reply</b><small>AI-written, checked before it sends</small></span><span class="t">0:20</span></li>
-          <li class="step"><span class="dot">3</span><span><b>You get an alert</b><small>With who they are and what they want</small></span><span class="t">0:21</span></li>
+          <li class="step"><span class="dot">2</span><span><b>Instant personal reply</b><small>Written for them, checked before it sends</small></span><span class="t">0:20</span></li>
+          <li class="step"><span class="dot">3</span><span><b>You get an alert</b><small>Who they are and what they want</small></span><span class="t">0:21</span></li>
           <li class="step"><span class="dot">4</span><span><b>They book a time</b><small>Online calendar, reminders sent</small></span><span class="t">day 1</span></li>
-          <li class="step"><span class="dot">5</span><span><b>Paid and onboarded</b><small>Welcome email, moved to the next stage</small></span><span class="t">day 3</span></li>
-          <li class="step"><span class="dot">6</span><span><b>Review asked</b><small>After the job, on its own</small></span><span class="t">day 10</span></li>
+          <li class="step"><span class="dot">5</span><span><b>Review requested</b><small>After the job, on its own</small></span><span class="t">day 7</span></li>
         </ol>
-        <div class="sys-foot"><span>Nothing typed by hand</span><span>Every step logged</span></div>
       </div>
     </div>
   </section>
 
-  <section class="cta-band">
+  <section class="band">
+    <div class="wrap get">
+      <div>
+        <div class="head">
+          <span class="eyebrow">What you get</span>
+          <h2>A front desk that never sleeps.</h2>
+        </div>
+        <ul class="checks">
+          <li><div>Every enquiry answered in seconds<span>A personal reply, and an alert to you</span></div></li>
+          <li><div>Bookings without the back-and-forth<span>Online calendar with automatic reminders</span></div></li>
+          <li><div>Follow-ups that send themselves<span>Quotes and enquiries chased until they answer</span></div></li>
+          <li><div>More good reviews<span>Asked after every job, replies drafted for you</span></div></li>
+          <li><div>Every customer in one place<span>Contacts saved and tagged in your CRM</span></div></li>
+          <li><div>It belongs to you<span>Built in your accounts, with a written handover</span></div></li>
+        </ul>
+      </div>
+      <div class="price">
+        <span class="eyebrow">Pricing</span>
+        <div class="amt">$400–1,500 <small>one-off setup for most fixes</small></div>
+        <p>You get a fixed price after the audit, before anything starts. An optional care plan keeps it running and fixes anything that breaks.</p>
+        <a class="btn" href="#audit">Start with the free audit</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap proof">
+      <figure><img src="assets/work/impact.jpg" alt="The impact report Conservatory Ballet received: lead pipelines moved from manual sheets to automated CRM intake" width="1800" height="1012" loading="lazy"></figure>
+      <div class="copy">
+        <span class="eyebrow">Recent work · Conservatory Ballet, Virginia US</span>
+        <h2>From spreadsheets to a system that runs itself.</h2>
+        <p class="muted">Enquiries sat in spreadsheets and website sign-ups never reached the CRM. I rebuilt the path from first enquiry to enrolled student: instant intake, personal follow-up emails, ticket sales and clean pipelines.</p>
+        <div class="stats">
+          <div class="stat"><strong>9</strong><span>automations live in one month</span></div>
+          <div class="stat"><strong>4 wks</strong><span>to the first live system</span></div>
+          <div class="stat"><strong>Every</strong><span>website sign-up now lands in the CRM</span></div>
+        </div>
+        <div class="me"><img src="assets/clever-headshot.jpg" alt="Clever Ahonsi" width="64" height="64" loading="lazy"><p><b>I'm Clever Ahonsi.</b> You deal with me directly, from the audit to the handover. <a href="https://www.linkedin.com/in/ahonsiclever25" target="_blank" rel="noopener">LinkedIn</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="audit">
     <div class="wrap">
-      <div><h2>Find out what's costing you customers.</h2><p>Free audit on all 14 areas, back within one working day.</p></div>
-      <a class="btn btn-primary" href="contact.html">Get a free audit</a>
+      <div>
+        <span class="eyebrow" style="color:#3DBE83">Free audit</span>
+        <h2 style="margin-top:.9rem">Find out where customers are slipping away.</h2>
+        <p class="lede">Send your website. You'll get your top problems back, with proof and the fix for each, at no cost.</p>
+        <ul>
+          <li>Back within one working day</li>
+          <li>No call needed</li>
+          <li>Pay only if you want the fix</li>
+        </ul>
+      </div>
+      <form class="audit" id="form" action="https://formsubmit.co/ahonsiclever@gmail.com" method="POST" novalidate>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="Name" autocomplete="name" required></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+        <div class="field full"><label for="f-site">Website or Google listing</label><input id="f-site" name="Website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" required></div>
+        <div class="field full"><label for="f-fix">What's costing you most?</label>
+          <select id="f-fix" name="Biggest problem">
+            <option value="Not sure, check everything">Not sure, check everything</option>
+            <option value="Slow replies to enquiries">Slow replies to enquiries</option>
+            <option value="Booking and no-shows">Booking and no-shows</option>
+            <option value="Leads and quotes not followed up">Leads and quotes not followed up</option>
+            <option value="Reviews">Reviews</option>
+            <option value="Website not bringing in enquiries">Website not bringing in enquiries</option>
+            <option value="Messy contacts and admin">Messy contacts and admin</option>
+          </select></div>
+        <div class="field full"><label for="f-msg">Anything else? <small>(optional)</small></label><textarea id="f-msg" name="Message"></textarea></div>
+        <input type="hidden" name="Time zone" id="f-tz">
+        <input type="hidden" name="_subject" value="New free audit request · Closar">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_autoresponse" value="Thanks for asking for a free Closar audit. I've got your details and I'll send your audit within one working day. If you want to add anything, just reply to this email. Clever Ahonsi, Closar">
+        <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+        <div class="form-foot">
+          <button class="btn" type="submit" id="send">Send my free audit request</button>
+          <p>You'll get a confirmation email straight away. <a href="privacy.html">Privacy</a></p>
+        </div>
+      </form>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem"><a class="wm wm-sm" href="./">CLOSAR</a>© 2026 Closar. AI automation, CRM and AI integration.</span>
-    <nav aria-label="Footer"><a href="work.html">Work</a><a href="services.html">Services</a><a href="creators.html">Creators</a><a href="about.html">About</a><a href="contact.html">Free audit</a><a href="privacy.html">Privacy</a></nav>
+    <span style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap"><a class="wm" href="#top">CLOSAR</a>© 2026 Closar</span>
+    <nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="mailto:ahonsiclever@gmail.com">Email</a></nav>
   </div>
 </footer>
-<dialog class="lb" id="lb" aria-label="Image viewer">
-  <img id="lb-img" alt="">
-  <p id="lb-cap"></p>
-  <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Previous image">‹</button>
-  <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Next image">›</button>
-  <button class="lb-close" id="lb-close" type="button" aria-label="Close">×</button>
-</dialog>
-<script src="assets/site.js"></script>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Outreach links carry ?fix=<audit area>; pre-pick the matching problem in the form.
+  var MAP = {response:"Slow replies to enquiries", dms:"Slow replies to enquiries", support:"Slow replies to enquiries",
+             booking:"Booking and no-shows", events:"Booking and no-shows",
+             followup:"Leads and quotes not followed up", sales:"Leads and quotes not followed up", winback:"Leads and quotes not followed up",
+             reviews:"Reviews", leads:"Website not bringing in enquiries", content:"Website not bringing in enquiries",
+             crm:"Messy contacts and admin", onboarding:"Messy contacts and admin", hiring:"Messy contacts and admin"};
+  var fix = new URLSearchParams(location.search).get("fix");
+  if (fix && MAP[fix]) $("f-fix").value = MAP[fix];
+
+  var tz = $("f-tz");
+  function guessTz(){ try { tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (err) {} }
+  guessTz();
+
+  // Form: sent by AJAX (instant auto-reply to them, email to me); falls back to the email app.
+  var form = $("form"), status = $("status"), send = $("send");
+  function say(cls, msg){ status.className = "status " + cls; status.textContent = msg; }
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (form._honey && form._honey.value) return;
+    if (!form.checkValidity()){
+      var bad = form.querySelector(":invalid"); if (bad) bad.focus();
+      say("err", "Please add your name, a valid email and your website.");
+      return;
+    }
+    send.disabled = true; send.textContent = "Sending…";
+    var data = {};
+    new FormData(form).forEach(function(v, k){ data[k] = v; });
+    data["Page"] = location.href;
+    fetch("https://formsubmit.co/ajax/ahonsiclever@gmail.com", {method:"POST", headers:{"Content-Type":"application/json", "Accept":"application/json"}, body:JSON.stringify(data)})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ if (!r.ok || String(j.success) === "false") throw new Error(j.message || "send failed"); }); })
+      .then(function(){
+        form.reset(); guessTz();
+        say("ok", "Got it. Check your inbox for a confirmation; your audit follows within one working day.");
+        send.textContent = "Sent";
+      })
+      .catch(function(){
+        var body = "Name: " + data.Name + "\nWebsite: " + data.Website + "\nBiggest problem: " + data["Biggest problem"] + "\nTime zone: " + data["Time zone"] + "\n\n" + (data.Message || "");
+        say("err", "That didn't send. Your email app will open with everything filled in instead.");
+        location.href = "mailto:ahonsiclever@gmail.com?subject=" + encodeURIComponent("Free audit request") + "&body=" + encodeURIComponent(body);
+        send.disabled = false; send.textContent = "Send my free audit request";
+      });
+  });
+
+  // Intro video: plays with sound on click.
+  $("reel-play").addEventListener("click", function(){ var v = $("reel-video"); v.controls = true; $("reel").classList.add("playing"); v.play(); });
+
+  // Example card: the enquiry lights up one step at a time, then starts over.
+  var steps = Array.prototype.slice.call(document.querySelectorAll("#steps .step")), clock = $("sys-clock");
+  if (reduce){ steps.forEach(function(s){ s.classList.add("on"); }); return; }
+  var i = -1, timer = null;
+  function tick(){
+    i = (i + 1) % (steps.length + 2);
+    steps.forEach(function(s, k){ s.classList.toggle("on", k <= i && i < steps.length); s.classList.toggle("now", k === i); });
+    if (i < steps.length) clock.textContent = steps[i].querySelector(".t").textContent;
+  }
+  function start(){ if (!timer) { tick(); timer = setInterval(tick, 1100); } }
+  function stop(){ clearInterval(timer); timer = null; }
+  document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
+  start();
+})();
+</script>
 </body>
 </html>
