@@ -48,7 +48,12 @@ async def studio_is_private(request: Request, call_next):
 
 @app.get("/")
 def site():
-    return FileResponse(ROOT / "site" / "index.html")
+    return FileResponse(ROOT / "site" / "index.html", headers={"Cache-Control": "no-store"})
+
+
+@app.get("/privacy.html")
+def privacy():
+    return FileResponse(ROOT / "site" / "privacy.html")
 
 
 # ---------- studio ----------
@@ -356,6 +361,7 @@ def save_settings(which: str, body: dict = Body(...)):
 
 
 app.mount("/studio/assets", StaticFiles(directory=ROOT / "studio"), name="studio-assets")
+app.mount("/assets", StaticFiles(directory=ROOT / "site" / "assets"), name="site-assets")   # the public site's video + images
 
 
 def scheduler():
