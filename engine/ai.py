@@ -89,7 +89,8 @@ def find_prospects(service_id, n, exclude):
     s = services()[service_id]
     who = "\n".join(f"- {w}" for w in s.get("prospects") or [])
     prompt = (PROMPTS / "prospect_find.md").read_text(encoding="utf-8").format(
-        service=s.get("about") or s.get("name"), who=who, n=n, exclude="\n".join(exclude[:150]) or "(none yet)")
+        service=s.get("about") or s.get("name"), who=who, n=n, exclude="\n".join(exclude[:150]) or "(none yet)",
+        countries=", ".join(cfg().get("countries") or ["United States", "United Kingdom", "Canada", "Australia"]))
     return parse_json_array(ask_claude(prompt, tools="WebSearch,WebFetch", timeout=2700))
 
 

@@ -48,6 +48,11 @@ def find(service_id):
             d["website"] = ""
         if not audit.auditable(d["profile_url"]):
             d["profile_url"] = ""
+        allowed = [x.lower() for x in cfg().get("countries") or []]
+        country = str(f.get("country") or "").strip().lower()
+        if allowed and (country not in allowed or not audit.tld_ok(d["website"] or d["profile_url"])):
+            log("prospects", f"skipped {d['name'] or '?'}: country '{country or '?'}' not in target countries")
+            continue
         target = (d["profile_url"] or d["website"]) if service_id == "creator" else d["website"]
         if not target:   # no own site (business) / channel (creator) = nothing real to score: not a lead
             log("prospects", f"skipped {d['name'] or '?'}: no own website/channel")

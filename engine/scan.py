@@ -61,6 +61,9 @@ def gate(p):
     w = _has(title or body[:160], c["skip_words"])
     if w:
         return False, None, None, f"seller post ({w})"
+    place = next((x for x in c.get("other_places") or [] if re.search(rf"\b{re.escape(x)}\b", body)), None)
+    if place:
+        return False, None, None, f"outside target countries ({place})"
     service = best_service(body)
     if not service:
         return False, None, None, "not in any of your menus"

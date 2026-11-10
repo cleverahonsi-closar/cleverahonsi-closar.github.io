@@ -233,7 +233,10 @@ def site_signs(pages):
     store = has("cdn.shopify.com", "woocommerce", "add to cart", "add-to-cart")
     if store and not has("klaviyo", "omnisend", "mailchimp", "drip.com", "privy", "attentive"):
         found.append(("sales", "store_no_cart", {}))
-    if re.search(r"(bank transfer|pay (in)?to (this|our|the) account|account number|send proof of payment)", txt):
+    # Only a sign when transfer is THE way to pay, not one option next to card / payment links.
+    other_pay = re.search(r"(credit card|debit card|card on file|pay by card|payment link|stripe|paypal|apple pay|"
+                          r"google pay|checkout|square)", txt) or has("cdn.shopify.com", "js.stripe.com", "paypal.com/sdk")
+    if re.search(r"(bank transfer|pay (in)?to (this|our|the) account|account number|send proof of payment)", txt) and not other_pay:
         found.append(("sales", "pay_transfer", {}))
     if not re.search(r"\bfaqs?\b|frequently asked|help cent(er|re)", txt):
         found.append(("support", "no_faq", {}))
@@ -242,7 +245,9 @@ def site_signs(pages):
     if role and re.search(r"(we'?re hiring|now hiring|join (our|the) team|careers|vacanc|job opening|apply now|position)", txt):
         r = role.group(1)
         found.append(("hiring", "hiring_admin", {"role": ("an " if r[0] in "aeiou" else "a ") + r}))
-    events = re.search(r"\b(tickets?|rsvp|upcoming events?|register now|early bird)\b", txt)
+    no_support = re.sub(r"(support|help|log an?|submit an?|open an?|raise an?|service) tickets?", " ", txt)   # helpdesk, not events
+    events = re.search(r"\b(event tickets?|tickets? (on sale|available)|buy tickets?|get (your )?tickets?|rsvp|upcoming events?|"
+                       r"register now|early bird)\b", no_support)
     ticket_tool = has("eventbrite", "tix.africa", "ticketmaster", "tito.io", "luma.com", "lu.ma", "dice.fm", "universe.com",
                       "ticketleap", "ticketsource", "zeffy", "humanitix", "paystack.com/pay", "flutterwave", "stripe")
     if events:
@@ -252,7 +257,9 @@ def site_signs(pages):
             found.append(("events", "event_no_tool", {}))
     calendar = has("calendly", "acuityscheduling", "setmore", "simplybook", "booksy", "fresha", "square.site/book",
                    "squareup.com/appointments", "vagaro", "mindbodyonline", "zcal", "cal.com", "tidycal", "msgsndr",
-                   "leadconnector", "/booking", "book online", "book now")
+                   "leadconnector", "/booking", "book online", "book now", "book-now", "/book\"", "/book/", "halaxy",
+                   "cliniko", "coreplus", "powerdiary", "nookal", "janeapp", "jane.app", "opentable", "resy.com",
+                   "exploretock", "simplepractice", "therapyportal", "zocdoc", "doctolib", "healthengine", "hotdoc")
     appts = re.search(r"\b(appointments?|consultations?|book (a|your) (session|call|visit|table)|reservations?)\b", txt)
     if re.search(r"(call|whatsapp|text|dm) (us )?to (book|reserve|schedule)", txt) and not calendar:
         found.append(("booking", "call_to_book", {}))
@@ -302,6 +309,14 @@ def is_channel(url):
 def is_own_site(url):
     """True for a lead's own website (not a social/forum/job-board/directory profile)."""
     return bool(url) and bool(_host(url)) and not _on(_host(url), CHANNEL_HOSTS + NOT_SITE_HOSTS)
+
+
+def tld_ok(url):
+    """False when the site sits on a country domain outside the target countries (e.g. .ng, .in, .com.ph)."""
+    last = _host(url).rsplit(".", 1)[-1]
+    if len(last) != 2:   # .com, .org, .io ... say nothing about country
+        return True
+    return last in (cfg().get("country_tlds") or ["us", "uk", "ca", "au"]) or last in ("io", "co", "ai", "me", "tv")
 
 
 def auditable(url):
@@ -415,7 +430,9 @@ def message(c, kind, ranked):
     lines = [f"Hi {hi},", "",
              a["hook"].format(evidence=ev) + " " + a["cost"], "",
              a["fix_line"] + f" Here's one I've built: {link}"]
-    also = [amap[r["area"]]["also"] for r in ranked[1:4]]
+    # Say what was actually seen (the sign's evidence), never the area's generic line, which can claim unseen things.
+    also = [next((s["evidence"] for s in r["signs"] if s.get("evidence")), "") or amap[r["area"]]["also"]
+            for r in ranked[1:4]]
     if also:
         lines += ["", "I also noticed:"] + [f"- {x}" for x in also]
     lines += ["", "Want me to show you how the first one would work for you?", "", "Clever"]

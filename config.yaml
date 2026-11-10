@@ -1,6 +1,13 @@
 # Closar studio settings (engine adapted from Gig Radar). Your proof of work (links, facts, prices, email footer) lives in proof.yaml.
 # You can edit this file on the dashboard (Settings tab) or in Notepad.
 port: 8810
+# Target countries (2026-11-10): leads must be businesses/creators based here. Prospects outside are skipped,
+# posts naming another country/city are dropped.
+countries: ["United States", "United Kingdom", "Canada", "Australia"]
+country_tlds: [us, uk, ca, au]   # a site on any other country domain (.ng, .in, .ph ...) is skipped
+other_places: [nigeria, lagos, abuja, port harcourt, ghana, accra, kenya, nairobi, south africa, india, pakistan,
+               bangladesh, philippines, manila, indonesia, malaysia, dubai, uae, saudi, egypt, brazil, mexico,
+               germany, france, spain, italy, netherlands, europe, singapore, vietnam]
 scan_every_min: 60        # free sources (Reddit, Bluesky, Telegram, n8n/Make forums) while the studio runs
 max_age_days: 7           # ignore posts older than this
 score_batch: 30           # posts per Claude scoring call
@@ -81,7 +88,7 @@ answers:                  # Hunt 3 (Reddit presence)
   promo_share_max: 10     # guideline: at most this % of your answers mention your work (the 90/10 rule)
 
 telegram:                 # public channels only (read through t.me/s/<channel>, no login). Add channel usernames.
-  channels: [tohire_ng]
+  channels: []            # tohire_ng removed 2026-11-10: Nigerian jobs, outside the target countries
 
 hn: false   # "Ask HN: Freelancer? Seeking freelancer?" thread: newest one found is October 2025, so it looks stopped
 
