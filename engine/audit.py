@@ -39,7 +39,7 @@ EVIDENCE = {
     "store_no_cart": "your store doesn't seem to have abandoned-cart emails set up",
     "pay_transfer": "payment is by bank transfer or DM",
     "no_faq": "there's no FAQ page on your site",
-    "hiring_admin": "you're hiring for a {role} role",
+    "hiring_admin": "you're hiring for {role} role",
     "event_transfer": "event tickets are sold by bank transfer or DM",
     "event_no_tool": "your events don't use a ticketing system",
     "call_to_book": "booking means calling or messaging you, with no online calendar",
@@ -208,7 +208,12 @@ def site_signs(pages):
     def has(*words):
         return any(w in low for w in words)
 
-    has_form = bool(re.search(r'<input[^>]+type=["\']?email', low)) or "<form" in low
+    # Many sites load their forms with JavaScript (form builders, iframes), so "<form" alone misses them.
+    has_form = (bool(re.search(r'<input[^>]+type=["\']?email', low)) or "<form" in low
+                or has("gform", "wpforms", "wpcf7", "ninja-forms", "elementor-form", "hsforms", "hbspt.forms", "typeform",
+                       "jotform", "formstack", "cognitoforms", "formspree", "fluentform", "forminator", "calendly",
+                       "acuityscheduling", "msgsndr", "leadconnector", "request a call", "call back", "callback",
+                       "contact form", "book now", "book online", "schedule an appointment", "request an appointment"))
     if not has_form:
         found.append(("leads", "no_form", {}))
     if not has("newsletter", "subscribe", "mailchimp", "convertkit", "klaviyo", "mailerlite", "beehiiv", "substack",
@@ -235,7 +240,8 @@ def site_signs(pages):
     role = re.search(r"(virtual assistant|personal assistant|admin(istrative)? assistant|administrator|receptionist|data entry|"
                      r"customer service|customer support|social media (assistant|manager)|office manager)", txt)
     if role and re.search(r"(we'?re hiring|now hiring|join (our|the) team|careers|vacanc|job opening|apply now|position)", txt):
-        found.append(("hiring", "hiring_admin", {"role": role.group(1)}))
+        r = role.group(1)
+        found.append(("hiring", "hiring_admin", {"role": ("an " if r[0] in "aeiou" else "a ") + r}))
     events = re.search(r"\b(tickets?|rsvp|upcoming events?|register now|early bird)\b", txt)
     ticket_tool = has("eventbrite", "tix.africa", "ticketmaster", "tito.io", "luma.com", "lu.ma", "dice.fm", "universe.com",
                       "ticketleap", "ticketsource", "zeffy", "humanitix", "paystack.com/pay", "flutterwave", "stripe")
