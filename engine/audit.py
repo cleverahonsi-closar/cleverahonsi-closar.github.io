@@ -424,7 +424,7 @@ def message(c, kind, ranked):
     links = (proof().get(kind) or {}).get("links") or []
     link = next((l.get("url") for l in links if isinstance(l, dict) and l.get("url")), "") or "[ADD LINK]"
     if "cleverahonsi-closar.github.io" in link and "#" not in link:   # deep link to the matching fix card on the site
-        link = link.rstrip("/") + "/" + ("#creators" if kind == "creator" else f"#fix-{main['area']}")
+        link = link.rstrip("/") + "/" + ("creators.html" if kind == "creator" else f"services.html#fix-{main['area']}")
     if c.get("handle") or kind == "creator":
         hi = _first(c.get("handle") or c.get("name"))
     else:   # a business found by its site: greet the team, not the brand as if it were a person

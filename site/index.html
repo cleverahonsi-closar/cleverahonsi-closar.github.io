@@ -3,338 +3,28 @@
 <title>Closar · AI automation and CRM systems</title>
 <meta name="description" content="Closar builds the systems that reply, book, follow up and keep your CRM clean, so customers stop slipping away. AI automation, CRM and AI integration by Clever Ahonsi.">
 <meta property="og:title" content="Closar · AI automation and CRM systems">
-<meta property="og:description" content="Free audit: see where customers slip away, and the exact fix.">
+<meta property="og:description" content="Closar builds the systems that reply, book, follow up and keep your CRM clean, so customers stop slipping away. AI automation, CRM and AI integration by Clever Ahonsi.">
 <meta property="og:image" content="https://cleverahonsi-closar.github.io/assets/closar-intro.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0D1311">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%23177D52'/%3E%3Cpath d='M62.53 64.94A19.5 19.5 0 1 1 62.53 35.06' fill='none' stroke='%23fff' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='65.4' cy='38' r='10' fill='%233DBE83'/%3E%3Ccircle cx='65.4' cy='38' r='4.5' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230D1311'/%3E%3Crect x='6' y='6' width='52' height='52' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='32' y='44' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='32' fill='%23fff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap">
-<style>
-/* Proof first: hero (copy | intro video) → client strip → work → how a fixed system runs → 14 fixes (each its own link) → creators
-   → experience → how it works → FAQ → founder → audit form. Motion: transform/opacity only, hover gated to fine pointers. */
-:root{
-  --bg:#F3F4F1; --surface:#FFFFFF; --ink:#10221C; --muted:#56635D; --line:#DDE2DC; --line-strong:#C5CDC6;
-  --accent:#177D52; --accent-ink:#FFFFFF; --accent-soft:#E3F1E9; --logo-green:#177D52; --node:#3DBE83;
-  --warn:#A87800; --warn-soft:#FBF0CC; --bad:#B42318;
-  --card-dark:#0E1814; --card-dark-fg:#E8EFEA;
-  --glass:rgba(243,244,241,.72); --glass-edge:rgba(16,34,28,.08);
-  --shadow-sm:0 1px 2px rgba(16,34,28,.06), 0 2px 8px rgba(16,34,28,.04);
-  --shadow-lg:0 2px 4px rgba(16,34,28,.04), 0 24px 48px -20px rgba(16,34,28,.22);
-  --display:"Be Vietnam Pro", -apple-system, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
-  --body:-apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
-  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
-  --ease-out:cubic-bezier(.23,1,.32,1);
-  --wrap:72rem;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
-  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A; --logo-green:#22925F;
-  --warn:#F2C230; --warn-soft:#3A3014; --bad:#F97066; --card-dark:#050807; --card-dark-fg:#E8EFEA;
-  --glass:rgba(13,19,17,.7); --glass-edge:rgba(255,255,255,.07);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0D1311; --surface:#151D1A; --ink:#E8EEEA; --muted:#97A59E; --line:#24302B; --line-strong:#33413B;
-  --accent:#3DBE83; --accent-ink:#06130D; --accent-soft:#16352A; --logo-green:#22925F;
-  --warn:#F2C230; --warn-soft:#3A3014; --bad:#F97066; --card-dark:#050807; --card-dark-fg:#E8EFEA;
-  --glass:rgba(13,19,17,.7); --glass-edge:rgba(255,255,255,.07);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow-lg:0 24px 48px -20px rgba(0,0,0,.6);
-  color-scheme:dark}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:5rem}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);letter-spacing:-.003em;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-p{margin:0}
-a{color:inherit}
-img,video{max-width:100%;height:auto;display:block}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
-
-h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
-h1{font-size:clamp(2.3rem,5vw,3.9rem);font-weight:800;line-height:1.03;letter-spacing:-.035em}
-h2{font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:700;line-height:1.07;letter-spacing:-.028em}
-h3{font-size:1.15rem;font-weight:700;line-height:1.22;letter-spacing:-.012em}
-.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.lede{font-size:1.13rem;line-height:1.55;color:var(--muted);max-width:58ch}
-.small{font-size:.875rem;line-height:1.5}
-.muted{color:var(--muted)}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font:600 1rem/1.2 var(--body);padding:.95em 1.45em;border-radius:999px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;text-align:center;user-select:none;-webkit-user-select:none;touch-action:manipulation;
-  transition:transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease}
-.btn:active{transform:scale(.97);transition-duration:100ms}
-.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 0 rgba(255,255,255,.18) inset, 0 6px 16px -8px color-mix(in srgb,var(--accent) 70%,transparent)}
-.btn-ghost{border-color:var(--line-strong);color:var(--ink);background:transparent}
-.btn-sm{padding:.6em 1em;font-size:.88rem}
-.btn svg{width:1em;height:1em;flex:none}
-@media (hover:hover) and (pointer:fine){
-  .btn-primary:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
-  .btn-ghost:hover{border-color:var(--ink)}
-  nav.links a:hover{color:var(--ink)}
-  .svc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-  .plan:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-  .thumb:hover img{transform:scale(1.03)}
-}
-
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--glass);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);transition:box-shadow 200ms ease}
-header.top.scrolled{box-shadow:0 1px 0 var(--glass-edge), 0 8px 24px -16px rgba(0,0,0,.18)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.75rem}
-nav.links{display:flex;gap:1.5rem;font-weight:500;font-size:.93rem}
-nav.links a{text-decoration:none;color:var(--muted);transition:color 150ms ease}
-nav.links a[aria-current="true"]{color:var(--ink)}
-header.top .btn{padding:.66em 1.1em;font-size:.92rem}
-@media (max-width:900px){nav.links{display:none}}
-
-.wm{display:inline-flex;align-items:center;gap:.45em;font:800 1.45rem/1 var(--display);letter-spacing:-.04em;color:var(--ink);text-decoration:none}
-.mark{width:1.35em;height:1.35em;flex:none}
-.mark .tile{fill:var(--logo-green)}
-
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.rise{animation:rise 520ms var(--ease-out) both}
-.rise:nth-child(2){animation-delay:50ms}.rise:nth-child(3){animation-delay:100ms}.rise:nth-child(4){animation-delay:150ms}.rise:nth-child(5){animation-delay:200ms}.rise:nth-child(6){animation-delay:250ms}
-@keyframes lift{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
-
-section{padding-block:5.5rem}
-.band{background:var(--surface)}
-.head{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.6rem;max-width:48rem}
-
-/* hero */
-.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:3rem;align-items:center;padding-block:4rem 3rem}
-.hero-copy{display:flex;flex-direction:column;gap:1.25rem;min-width:0}
-.cta-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.2rem}
-.promise{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;font-size:.88rem;color:var(--muted)}
-.promise span{display:inline-flex;align-items:center;gap:.4rem}
-.promise span::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--accent)}
-@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:2.5rem 2rem}}
-
-.reel{position:relative;border-radius:22px;overflow:hidden;background:#0D1311;box-shadow:var(--shadow-lg);aspect-ratio:16/9;animation:lift 700ms var(--ease-out) 120ms both;min-width:0}
-.reel video{width:100%;height:100%;object-fit:cover}
-.reel .play{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-start;padding:1rem;border:0;background:linear-gradient(180deg,rgba(13,19,17,0) 55%,rgba(13,19,17,.6));color:#fff;cursor:pointer;font:600 .95rem/1 var(--body);touch-action:manipulation}
-.reel .play span{display:inline-flex;align-items:center;gap:.65rem;padding:.45rem 1.1rem .45rem .45rem;border-radius:999px;background:rgba(13,19,17,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 0 1px rgba(255,255,255,.1)}
-.reel .play i{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--node);display:grid;place-items:center;transition:transform 200ms var(--ease-out)}
-.reel .play i svg{width:1rem;height:1rem;margin-left:.15rem;fill:#06130D}
-.reel .play:active i{transform:scale(.94)}
-@media (hover:hover) and (pointer:fine){.reel .play:hover i{transform:scale(1.06)}}
-.reel.playing .play{display:none}
-
-/* client strip */
-.clients{border-block:1px solid var(--line);padding-block:1.4rem}
-.clients .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 2.2rem}
-.clients .k{font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.clients b{font:700 1.08rem/1.2 var(--display);letter-spacing:-.015em}
-.clients small{display:block;font-size:.78rem;color:var(--muted);font-weight:400;font-family:var(--body);letter-spacing:0;margin-top:.15rem}
-
-/* work */
-.case{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;padding:2rem;border-radius:26px;background:var(--surface);box-shadow:var(--shadow-sm)}
-.case + .case{margin-top:1.25rem}
-.case-meta{display:flex;flex-wrap:wrap;gap:.4rem}
-.case-meta span{font:500 .7rem/1 var(--mono);padding:.5em .7em;border-radius:999px;background:var(--bg);color:var(--muted)}
-.case-copy{display:flex;flex-direction:column;gap:1rem;min-width:0}
-.case h3.big{font-size:1.55rem;letter-spacing:-.02em}
-.built{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.7rem}
-.built li{display:grid;grid-template-columns:1rem 1fr;gap:.6rem;font-size:.96rem}
-.built li::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--accent);margin-top:.55em}
-.built li b{font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-.stat{padding:1rem;border-radius:14px;background:var(--bg)}
-.stat strong{display:block;font:800 1.7rem/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--accent)}
-.stat span{font-size:.82rem;color:var(--muted);line-height:1.35;display:block;margin-top:.35rem}
-figure{margin:0;display:flex;flex-direction:column;gap:.55rem;min-width:0}
-figcaption{font-size:.82rem;color:var(--muted)}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
-.gallery .wide{grid-column:span 3}
-.thumb{display:block;position:relative;padding:0;border:0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--line), var(--shadow-sm);cursor:zoom-in;aspect-ratio:16/10}
-.gallery .wide.thumb{aspect-ratio:16/9}
-.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 400ms var(--ease-out)}
-.thumb span{position:absolute;left:.5rem;bottom:.5rem;font:500 .64rem/1 var(--mono);letter-spacing:.04em;padding:.45em .6em;border-radius:999px;background:rgba(13,19,17,.78);color:#E8EEEA}
-.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;font:500 .72rem/1 var(--mono)}
-.pipe span{padding:.55em .7em;border-radius:8px;background:var(--bg)}
-.pipe i{font-style:normal;color:var(--muted)}
-.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
-.phone{border-radius:22px;padding:6px;background:#080A09;box-shadow:0 0 0 1px #3C4842, var(--shadow-sm);min-width:0}
-.phone video{border-radius:17px;aspect-ratio:9/16;object-fit:cover;width:100%;background:#000}
-@media (max-width:900px){.case{grid-template-columns:1fr;padding:1.4rem}}
-@media (max-width:480px){.stats{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.gallery .wide{grid-column:span 2}}
-
-.own{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem}
-.own-item{display:flex;flex-direction:column;gap:.45rem;padding:1.3rem;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);min-width:0}
-.own-item .k{font:500 .66rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.own-item p{color:var(--muted);font-size:.94rem}
-@media (max-width:980px){.own{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.own{grid-template-columns:1fr}}
-
-/* live system */
-.live{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-.sys{background:var(--card-dark);color:var(--card-dark-fg);border-radius:24px;padding:1.3rem;box-shadow:var(--shadow-lg);min-width:0}
-.sys-top{display:flex;justify-content:space-between;align-items:center;font:500 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:1rem}
-.sys-top i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3DBE83;margin-right:.45rem}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem}
-.step{display:grid;grid-template-columns:1.6rem 1fr auto;gap:.7rem;align-items:center;padding:.7rem .8rem;border-radius:12px;background:rgba(255,255,255,.04);
-  opacity:.38;transition:opacity 260ms var(--ease-out), background-color 260ms ease, transform 260ms var(--ease-out)}
-.step.on{opacity:1;background:rgba(61,190,131,.12)}
-.step.now{transform:translateX(4px)}
-.step .dot{width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;font:500 .7rem/1 var(--mono);background:rgba(255,255,255,.08)}
-.step.on .dot{background:#3DBE83;color:#06130D}
-.step b{font-weight:600;font-size:.95rem}
-.step small{display:block;font-size:.78rem;opacity:.65;margin-top:.1rem}
-.step .t{font:500 .7rem/1 var(--mono);opacity:.6;white-space:nowrap}
-.sys-foot{margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:.8rem;font-size:.8rem;opacity:.75}
-.rules{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem 1.25rem}
-.rule{display:flex;flex-direction:column;gap:.45rem;padding-top:1rem;border-top:2px solid var(--ink);min-width:0}
-.rule p{color:var(--muted);font-size:.95rem}
-@media (max-width:900px){.live{grid-template-columns:1fr}}
-@media (max-width:540px){.rules{grid-template-columns:1fr}}
-
-/* services */
-.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
-.jump a{font-size:.85rem;padding:.45em .85em;border-radius:999px;background:var(--surface);box-shadow:var(--shadow-sm);text-decoration:none;color:var(--muted)}
-.jump a:active{transform:scale(.97)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.svc{display:flex;flex-direction:column;gap:.7rem;padding:1.35rem;border-radius:20px;background:var(--surface);box-shadow:var(--shadow-sm);min-width:0;transition:transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out)}
-.svc:target{box-shadow:0 0 0 2.5px var(--accent), var(--shadow-lg)}
-.svc-top{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
-.svc .n{font:500 .7rem/1 var(--mono);letter-spacing:.06em;color:var(--accent)}
-.svc .signs{font-size:.88rem;color:var(--muted);line-height:1.5}
-.svc .signs b{display:block;font:500 .66rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--warn);margin-bottom:.35rem}
-.svc .fix{font-size:.95rem;line-height:1.45}
-.svc .fix b{display:block;font:500 .66rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
-.svc .price{margin-top:auto;padding-top:.8rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem .8rem;font-size:.85rem;font-variant-numeric:tabular-nums}
-.svc .price span{color:var(--muted)} .svc .price strong{font-weight:600}
-.svc .btn{align-self:flex-start}
-@media (max-width:980px){.svc-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.svc-grid{grid-template-columns:1fr}}
-.bundles{margin-top:1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.bundle{padding:1.3rem 1.4rem;border-radius:18px;background:var(--accent-soft);display:flex;flex-direction:column;gap:.4rem}
-.bundle b{font:500 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.note{margin-top:1.2rem;font-size:.88rem;color:var(--muted);max-width:70ch}
-@media (max-width:700px){.bundles{grid-template-columns:1fr}}
-
-/* creators */
-.cr-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.5rem;align-items:start}
-.signs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}
-.signs-list li{display:grid;grid-template-columns:1rem 1fr;gap:.6rem;font-size:.97rem}
-.signs-list li::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--warn);margin-top:.58em}
-.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-.plan{display:flex;flex-direction:column;gap:.75rem;padding:1.4rem;border-radius:20px;background:var(--bg);min-width:0;transition:transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out)}
-.plan.pop{box-shadow:0 0 0 2px var(--accent)}
-.plan-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
-.plan-name{font:800 1.2rem/1 var(--display);letter-spacing:-.02em}
-.badge{font:500 .6rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:.5em .65em;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
-.amt{font:800 2.1rem/1 var(--display);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
-.amt small{font:500 .88rem/1 var(--body);color:var(--muted);letter-spacing:0}
-.plan p{font-size:.94rem;color:var(--muted)}
-.plan .btn{margin-top:auto;align-self:flex-start}
-.offer{margin-top:1rem;padding:1rem 1.2rem;border-radius:16px;background:var(--warn-soft);font-size:.93rem}
-@media (max-width:900px){.cr-grid{grid-template-columns:1fr}}
-@media (max-width:520px){.plans{grid-template-columns:1fr}}
-
-/* experience */
-.xp{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:start}
-.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.tl li{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:1.1rem 0;border-top:1px solid var(--line)}
-.tl li:last-child{border-bottom:1px solid var(--line)}
-.tl .when{font:500 .72rem/1.4 var(--mono);color:var(--muted);padding-top:.2rem}
-.tl h3{font-size:1.05rem}
-.tl p{color:var(--muted);font-size:.94rem;margin-top:.3rem}
-.tools{display:flex;flex-direction:column;gap:1.2rem;padding:1.5rem;border-radius:20px;background:var(--surface);box-shadow:var(--shadow-sm)}
-.tools .grp b{display:block;font:500 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem}
-.chips span{font-size:.85rem;padding:.35em .75em;border-radius:999px;background:var(--bg)}
-@media (max-width:900px){.xp{grid-template-columns:1fr}}
-@media (max-width:480px){.tl li{grid-template-columns:1fr;gap:.35rem}}
-
-/* how */
-.how{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
-.how li{display:flex;flex-direction:column;gap:.5rem;padding-top:1rem;border-top:2px solid var(--ink);min-width:0}
-.how li p{color:var(--muted);font-size:.95rem}
-.how .when{font:500 .7rem/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
-@media (max-width:960px){.how{grid-template-columns:1fr 1fr}}
-@media (max-width:540px){.how{grid-template-columns:1fr}}
-
-.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem 3rem}
-.qa{display:flex;flex-direction:column;gap:.45rem;min-width:0}
-.qa h3{font-size:1.04rem}
-.qa p{color:var(--muted)}
-@media (max-width:760px){.faq{grid-template-columns:1fr}}
-
-.founder .wrap{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;max-width:56rem}
-.avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-sm)}
-.founder p{color:var(--muted);margin-top:.6rem;max-width:62ch}
-@media (max-width:560px){.founder .wrap{grid-template-columns:1fr}}
-
-/* contact form */
-.final{background:var(--card-dark);color:var(--card-dark-fg)}
-.final .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:start}
-.final h2{color:#fff;max-width:18ch}
-.final .lede{color:#A9B7B0}
-.final ul{list-style:none;margin:1.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:.6rem;font-size:.95rem;color:#C9D4CE}
-.final ul li{display:grid;grid-template-columns:1.2rem 1fr;gap:.5rem}
-.final ul li::before{content:"✓";color:#3DBE83;font-weight:700}
-form.audit{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.6rem;border-radius:22px;background:#111A16;box-shadow:0 0 0 1px rgba(255,255,255,.07)}
-.field{display:flex;flex-direction:column;gap:.4rem;min-width:0}
-.field.full{grid-column:1 / -1}
-.field label{font-size:.85rem;font-weight:600;color:#DDE6E1}
-.field label small{font-weight:400;color:#8FA098}
-.field input,.field select,.field textarea{font:400 16px/1.4 var(--body);color:#E8EEEA;background:#0A100D;border:1.5px solid #2A3631;border-radius:12px;padding:.75em .9em;width:100%;min-width:0;transition:border-color 150ms ease}
-.field textarea{min-height:6.5rem;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#3DBE83}
-.field input:user-invalid{border-color:#F97066}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:1rem}
-.form-foot .btn-primary{background:#3DBE83;color:#06130D}
-.form-foot p{font-size:.82rem;color:#8FA098;flex:1 1 14rem}
-.form-foot a{color:#C9D4CE}
-.status{grid-column:1 / -1;font-size:.92rem;border-radius:12px;padding:.8rem 1rem;display:none}
-.status.ok{display:block;background:rgba(61,190,131,.14);color:#BFEBD5}
-.status.err{display:block;background:rgba(249,112,102,.12);color:#FBC6C1}
-@media (max-width:900px){.final .wrap{grid-template-columns:1fr}}
-@media (max-width:560px){form.audit{grid-template-columns:1fr;padding:1.1rem}}
-
-footer{padding-block:2.2rem;font-size:.85rem;color:var(--muted)}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem}
-footer nav{display:flex;flex-wrap:wrap;gap:1rem}
-
-/* lightbox */
-dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1400px);max-height:94vh;overflow:visible}
-dialog.lb::backdrop{background:rgba(5,8,7,.86);backdrop-filter:blur(6px)}
-dialog.lb[open]{animation:lift 260ms var(--ease-out)}
-dialog.lb img{max-width:min(96vw,1400px);max-height:82vh;width:auto;border-radius:14px;background:#fff;margin:0 auto}
-dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;padding-inline:3.2rem}
-.lb-btn{position:absolute;top:50%;transform:translateY(-50%);width:2.8rem;height:2.8rem;border-radius:50%;border:0;background:rgba(232,238,234,.92);color:#10221C;font-size:1.3rem;cursor:pointer;touch-action:manipulation}
-.lb-prev{left:-.6rem}.lb-next{right:-.6rem}
-.lb-close{position:absolute;top:-.9rem;right:-.6rem;width:2.4rem;height:2.4rem;border-radius:50%;border:0;background:#E8EEEA;color:#10221C;font-size:1.2rem;cursor:pointer}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .rise,.reel{animation:fade 200ms ease both}
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  .btn:active{transform:none}
-  .step,.step.now{transition:none;transform:none}
-  @media (hover:hover){.svc:hover,.plan:hover{transform:none}.thumb:hover img{transform:none}}
-}
-@media (prefers-reduced-transparency:reduce){header.top{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
-@media (prefers-contrast:more){:root{--line:#8A968F;--muted:#3C4842}.svc,.plan,.case,.own-item{box-shadow:0 0 0 1.5px var(--ink)}}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
-<body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="mark" viewBox="0 0 100 100"><rect width="100" height="100" rx="26" style="fill:var(--logo-green)"/><path d="M62.53 64.94A19.5 19.5 0 1 1 62.53 35.06" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round"/><circle cx="65.4" cy="38" r="10" fill="#3DBE83"/><circle cx="65.4" cy="38" r="4.5" fill="#fff"/></symbol>
-</svg>
+<body data-page="index">
 
 <header class="top" id="hdr">
   <div class="wrap">
-    <a class="wm" href="#top" aria-label="Closar home"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>Closar</a>
-    <nav class="links" aria-label="Sections">
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#creators">Creators</a>
-      <a href="#how">How it works</a>
-      <a href="#faq">Questions</a>
+    <a class="wm" href="./">CLOSAR</a>
+    <nav class="links" aria-label="Pages">
+      <a href="work.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="creators.html">Creators</a>
+      <a href="about.html">About</a>
     </nav>
-    <a class="btn btn-primary" href="#contact">Free audit</a>
+    <a class="btn btn-primary" href="contact.html">Free audit</a>
   </div>
 </header>
 
@@ -346,8 +36,8 @@ dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;pa
         <h1 class="rise">Stop losing customers to slow replies and forgotten follow-ups.</h1>
         <p class="lede rise">I build the systems that answer every enquiry in seconds, book the call, follow up on their own and keep your CRM clean. For small businesses and creators in the US, UK, Canada and Australia.</p>
         <div class="cta-row rise">
-          <a class="btn btn-primary" href="#contact">Get a free audit</a>
-          <a class="btn btn-ghost" href="#work">See the work</a>
+          <a class="btn btn-primary" href="contact.html">Get a free audit</a>
+          <a class="btn btn-ghost" href="work.html">See the work</a>
         </div>
         <div class="promise rise"><span>Reply within one working day</span><span>Fixed price before work starts</span><span>Built in your own accounts</span></div>
       </div>
@@ -355,7 +45,7 @@ dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;pa
         <video id="reel-video" preload="none" playsinline poster="assets/closar-intro.jpg" width="1280" height="720">
           <source src="assets/closar-intro.mp4" type="video/mp4">
         </video>
-        <button class="play" id="reel-play" type="button" aria-label="Play the 47-second Closar intro with sound"><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></i>Watch the 47-second intro</span></button>
+        <button class="play" id="reel-play" type="button" aria-label="Play the 48-second Closar intro with sound"><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg></i>Watch the 48-second intro</span></button>
       </div>
     </div>
   </section>
@@ -369,85 +59,19 @@ dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;pa
     </div>
   </div>
 
-  <section id="work">
+  <section>
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">Clients and work delivered</span>
-        <h2>Real systems, live for real clients.</h2>
-        <p class="lede">Click any picture to see it full size. These are the real build files: the process maps, the workflows and the reports the clients got.</p>
+        <span class="eyebrow">Explore</span>
+        <h2>See the work, pick a fix, or start posting daily.</h2>
       </div>
-
-      <article class="case">
-        <div class="case-copy">
-          <div class="case-meta"><span>Conservatory Ballet · Virginia, US</span><span>with ABRB Consulting, LLC</span><span>Apr – Aug 2026</span></div>
-          <h3 class="big">A full lead-to-client system for a ballet school</h3>
-          <p class="muted">Enquiries were sitting in spreadsheets, website registrations never reached the CRM and emails landed in spam. I mapped the whole journey on paper, then built it end to end. The first build was live in four weeks, I was retained on contract, and in July alone I delivered 9 systems.</p>
-          <ul class="built">
-            <li><span><b>Ticket Sales Engine (n8n + Google Gemini).</b> A CRM tag triggers personal AI-written emails for recitals, workshops and summer camps. A "traffic-light" check stops a blank or broken AI message from ever being sent, and every send is logged.</span></li>
-            <li><span><b>Lead intake in GoHighLevel.</b> A branded form with separate consent for service and marketing texts, a 5-stage pipeline, and a first SMS sent only when the person agreed to texts.</span></li>
-            <li><span><b>Website to CRM.</b> Website and Stripe registrations never reached the CRM. I replaced the site form so every registration lands in it.</span></li>
-            <li><span><b>Three pipelines, one per revenue stream.</b> Trials, programs and camps, and events, with a 9-way interest split that puts every new lead in the right place.</span></li>
-            <li><span><b>Email deliverability.</b> SPF, DKIM and DMARC on a separate sending subdomain, so emails reach the inbox without breaking the school's own mail.</span></li>
-            <li><span><b>Ads audit and phone line.</b> Six fixes in the right order, a four-number scorecard (cost per enquiry, enquiry to trial, trial to enrolled, budget spent) and a verified toll-free texting number.</span></li>
-          </ul>
-          <div class="stats">
-            <div class="stat"><strong>9</strong><span>systems delivered in one month</span></div>
-            <div class="stat"><strong>4 wks</strong><span>to the first live build</span></div>
-            <div class="stat"><strong>~96%</strong><span>better consent tracking</span></div>
-          </div>
-        </div>
-        <figure>
-          <div class="gallery" id="gallery">
-            <button class="thumb wide" type="button" data-full="assets/work/impact.jpg" data-cap="The impact report the client received: every lead pipeline moved from manual sheets to automated CRM intake."><img src="assets/work/impact.jpg" alt="Slide: three months of business impact, 100% automated pipelines" loading="lazy" width="1800" height="1012"><span>Impact report</span></button>
-            <button class="thumb" type="button" data-full="assets/work/process-map.jpg" data-cap="Step 1: the lead journey mapped on paper (new, undecided, hot) and what to automate at each stage."><img src="assets/work/process-map.jpg" alt="Hand-drawn process map of the lead journey" loading="lazy" width="1200" height="1696"><span>Process map</span></button>
-            <button class="thumb" type="button" data-full="assets/work/flow-sketch.jpg" data-cap="The website-to-CRM flow sketched before it was built."><img src="assets/work/flow-sketch.jpg" alt="Hand-drawn flow from website forms into the CRM pipelines" loading="lazy" width="1200" height="1696"><span>Flow sketch</span></button>
-            <button class="thumb" type="button" data-full="assets/ticket-engine.png" data-cap="The Ticket Sales Engine trigger in GoHighLevel. Each tagged contact goes to n8n, where Gemini writes the email."><img src="assets/ticket-engine.png" alt="Ticket Sales Engine workflow in GoHighLevel" loading="lazy" width="946" height="781"><span>Ticket engine</span></button>
-            <button class="thumb" type="button" data-full="assets/work/ai-email-pipeline.jpg" data-cap="The AI email pipeline: personal copy, traffic-light gates that hold bad output, and an audit log in Google Sheets."><img src="assets/work/ai-email-pipeline.jpg" alt="Slide: resilient AI email pipeline" loading="lazy" width="1800" height="1012"><span>AI emails</span></button>
-            <button class="thumb" type="button" data-full="assets/work/ads-six-changes.jpg" data-cap="The ads audit: six changes, in order, starting with delivery and tracking."><img src="assets/work/ads-six-changes.jpg" alt="Slide: the six changes from the ads audit" loading="lazy" width="1800" height="1011"><span>Ads audit</span></button>
-            <button class="thumb" type="button" data-full="assets/work/ads-scorecard.jpg" data-cap="The four-number scorecard the next ads quarter is judged on."><img src="assets/work/ads-scorecard.jpg" alt="Slide: the four-number ads scorecard" loading="lazy" width="1800" height="1011"><span>Scorecard</span></button>
-          </div>
-          <div class="pipe" aria-label="The trial pipeline"><span>New lead</span><i>→</i><span>Trial booked</span><i>→</i><span>Trial attended</span><i>→</i><span>Enrolled</span></div>
-        </figure>
-      </article>
-
-      <article class="case">
-        <div class="case-copy">
-          <div class="case-meta"><span>The Media Chic</span><span>Marketing educator · TikTok @_themediachic</span><span>Oct 2026 – now</span></div>
-          <h3 class="big">A weekly content system for a marketing educator</h3>
-          <p class="muted">Every week she gets 5 short videos and 3 carousels made from her own footage, photos and stories, so her page keeps posting while she runs her business. These three are real deliveries.</p>
-          <ul class="built">
-            <li><span><b>Formats that already work.</b> Her niche was researched first, and her videos use the formats that perform in it, never anyone else's footage.</span></li>
-            <li><span><b>Carousels in her own look.</b> Her past carousels were measured (colours, fonts, layouts) so new ones match her brand exactly.</span></li>
-            <li><span><b>A content bank from her onboarding.</b> Her answers and stories feed a bank that new videos are built from every week, each one checked before delivery.</span></li>
-          </ul>
-          <div class="stats" style="grid-template-columns:1fr 1fr">
-            <div class="stat"><strong>5</strong><span>short videos a week</span></div>
-            <div class="stat"><strong>3</strong><span>brand carousels a week</span></div>
-          </div>
-        </div>
-        <figure>
-          <div class="phones">
-            <div class="phone"><video class="auto" muted loop playsinline preload="none" poster="assets/work/mediachic-1.jpg" width="540" height="960" aria-label="Media Chic video: Your customer saw your post. So why didn't they buy?"><source src="assets/work/mediachic-1.mp4" type="video/mp4"></video></div>
-            <div class="phone"><video class="auto" muted loop playsinline preload="none" poster="assets/work/mediachic-2.jpg" width="540" height="960" aria-label="Media Chic video: Planned in October, it's a campaign"><source src="assets/work/mediachic-2.mp4" type="video/mp4"></video></div>
-            <div class="phone"><video class="auto" muted loop playsinline preload="none" poster="assets/work/mediachic-3.jpg" width="540" height="960" aria-label="Media Chic video: Client says my product is for everybody"><source src="assets/work/mediachic-3.mp4" type="video/mp4"></video></div>
-          </div>
-          <figcaption>Delivered videos, first 15 seconds, muted. Tap a video to hear it.</figcaption>
-        </figure>
-      </article>
-
-      <h3 style="margin-top:3rem;font-size:1.4rem;letter-spacing:-.02em">Systems I run every day</h3>
-      <p class="muted" style="margin-top:.4rem;max-width:62ch">Every fix I sell runs on my own business first. These are live.</p>
-      <div class="own">
-        <div class="own-item"><span class="k">Lead hunt + CRM</span><h3>Lead finder and scorer</h3><p>Finds businesses with visible problem signs, scores them on the 14 areas, drafts the message and tracks every lead through a pipeline.</p></div>
-        <div class="own-item"><span class="k">Cross-posting</span><h3>Buffer cross-poster</h3><p>AI rewrites each post for every platform and posts it automatically to TikTok, Instagram and YouTube.</p></div>
-        <div class="own-item"><span class="k">Quality control</span><h3>Post guard</h3><p>Pulls post metrics, checks every new post for repeats and tone, and holds back the bad ones before they go out.</p></div>
-        <div class="own-item"><span class="k">Content</span><h3>Content engines</h3><p>Idea generation, scripts and scheduled posting for X and LinkedIn, running daily.</p></div>
-        <div class="own-item"><span class="k">Video</span><h3>RenderHub</h3><p>Researches formats, builds short videos and carousels from a client's material, and checks every frame before delivery.</p></div>
-        <div class="own-item"><span class="k">AI agents</span><h3>Daily AI summary agent</h3><button class="thumb" type="button" style="margin-top:.4rem;aspect-ratio:auto" data-full="assets/n8n-summary-agent.png" data-cap="n8n: a 7 AM daily AI summary agent that emails the result."><img src="assets/n8n-summary-agent.png" alt="An n8n workflow for a daily 7 AM AI summary agent" width="1599" height="756" loading="lazy" style="object-fit:contain"><span>n8n</span></button></div>
+      <div class="teasers">
+        <a class="teaser" href="work.html"><div class="pic"><img src="assets/work/impact.jpg" alt="Impact report for Conservatory Ballet" loading="lazy" width="1800" height="1012"></div><div class="txt"><span class="eyebrow">Work</span><h3>9 systems for a ballet school in one month</h3><p>Process maps, live workflows and the reports clients got, plus weekly content for The Media Chic.</p><span class="go">See the work →</span></div></a>
+        <a class="teaser" href="services.html"><div class="pic"><img src="assets/ticket-engine.png" alt="Ticket Sales Engine workflow" loading="lazy" width="946" height="781"></div><div class="txt"><span class="eyebrow">Services</span><h3>14 fixes, each with a fixed price</h3><p>Instant replies, online booking, review replies, follow-ups, CRM clean-up, win-back and more.</p><span class="go">See all 14 fixes →</span></div></a>
+        <a class="teaser" href="creators.html"><div class="pic"><img src="assets/work/mediachic-3.jpg" alt="A delivered Media Chic video" loading="lazy" width="540" height="960" style="object-position:center 20%"></div><div class="txt"><span class="eyebrow">Creators</span><h3>Daily clips from one recording</h3><p>Cut, captioned and scheduled across TikTok, Instagram, Shorts and X, from $49 a month.</p><span class="go">See creator plans →</span></div></a>
       </div>
     </div>
   </section>
-
   <section class="band">
     <div class="wrap live">
       <div>
@@ -477,173 +101,20 @@ dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;pa
     </div>
   </section>
 
-  <section id="services">
+  <section class="cta-band">
     <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Services for businesses</span>
-        <h2>The 14 places a business system breaks, and the fix for each.</h2>
-        <p class="lede">Every audit checks your business against these 14 areas. You get the problems ranked by what they cost you, and you choose what to fix. Setup is a one-off fee. Monthly running and maintenance is optional.</p>
-      </div>
-      <nav class="jump" id="jump" aria-label="Jump to a fix"></nav>
-      <div class="svc-grid" id="svc-grid"></div>
-      <div class="bundles">
-        <div class="bundle"><b>Bundle</b><h3>Any 2 fixes</h3><p class="muted">About 15% off the two setup fees.</p></div>
-        <div class="bundle"><b>Full system</b><h3>Content, leads, CRM and follow-up</h3><p class="muted">$2,500–4,500 setup, plus $600–1,200 a month.</p></div>
-      </div>
-      <p class="note">Prices are typical ranges. You get one fixed price for your fix after the free audit, before any work starts.</p>
-    </div>
-  </section>
-
-  <section class="band" id="creators">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Services for creators</span>
-        <h2>For creators, the problem is posting consistently. I fix that.</h2>
-        <p class="lede">One recording becomes daily clips, cut, captioned and scheduled across TikTok, Instagram, YouTube Shorts and X, with a posting schedule and stats. It's the same system behind The Media Chic's weekly videos <a href="#work">above</a>.</p>
-      </div>
-      <div class="cr-grid">
-        <div>
-          <h3 style="margin-bottom:1rem">Signs your posting needs a system</h3>
-          <ul class="signs-list">
-            <li>Gaps of 7 days or more between posts</li>
-            <li>Bursts of posts, then silence</li>
-            <li>Active on one platform, dead or missing on the others</li>
-            <li>Long videos and podcasts never cut into Shorts or Reels</li>
-            <li>Posting at random times</li>
-            <li>Views falling over your last 10–20 posts</li>
-            <li>"Sorry I've been gone" or "I'm back" posts</li>
-            <li>Livestreams never clipped</li>
-            <li>Same format every time, no captions or B-roll</li>
-            <li>Fans asking "when's the next video?"</li>
-            <li>A bio link still promoting an old launch</li>
-            <li>A big audience but no newsletter or community of your own</li>
-          </ul>
-        </div>
-        <div>
-          <div class="plans">
-            <article class="plan"><div class="plan-top"><span class="plan-name">Starter</span></div><div class="amt">$49 <small>/ month</small></div><p>3 clips a week from your footage, captioned and scheduled to 2 platforms.</p><a class="btn btn-ghost btn-sm pick" href="#contact" data-pick="Creator plan: Starter">Choose Starter</a></article>
-            <article class="plan pop"><div class="plan-top"><span class="plan-name">Consistent</span><span class="badge">Popular</span></div><div class="amt">$99 <small>/ month</small></div><p>1 post a day on TikTok, Instagram, Shorts and X, a posting schedule and monthly stats.</p><a class="btn btn-primary btn-sm pick" href="#contact" data-pick="Creator plan: Consistent">Choose Consistent</a></article>
-            <article class="plan"><div class="plan-top"><span class="plan-name">Pro</span></div><div class="amt">$179 <small>/ month</small></div><p>2 posts a day, long videos cut into Shorts, a DM keyword auto-reply and a weekly report.</p><a class="btn btn-ghost btn-sm pick" href="#contact" data-pick="Creator plan: Pro">Choose Pro</a></article>
-            <article class="plan"><div class="plan-top"><span class="plan-name">One-off</span></div><div class="amt">$29</div><p>30 clips from one video.</p><a class="btn btn-ghost btn-sm pick" href="#contact" data-pick="Creator: one-off 30 clips">Order clips</a></article>
-          </div>
-          <p class="offer"><b>First month half price</b> in exchange for a case study. No contract, cancel any time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Experience</span>
-        <h2>From animation pipelines to automation pipelines.</h2>
-        <p class="lede">I spent years in high-volume animation production, where every frame passes through a pipeline and nothing ships unchecked. I build business systems the same way.</p>
-      </div>
-      <div class="xp">
-        <ol class="tl">
-          <li><span class="when">Oct 2026 – now</span><div><h3>Closar · founder</h3><p>AI automation, CRM and content systems for small businesses and creators. Client: The Media Chic.</p></div></li>
-          <li><span class="when">Apr – Aug 2026</span><div><h3>ABRB Consulting, LLC · AI Automation &amp; CRM Specialist</h3><p>Remote, Virginia, US. Retained on contract after the first build. Designed and built the lead-to-client system for Conservatory Ballet: n8n, GoHighLevel, Gemini, Gmail API, Google Sheets, SMS and email deliverability.</p></div></li>
-          <li><span class="when">Dec 2025</span><div><h3>First AI automations</h3><p>n8n builds, including daily and weekly AI summary agents.</p></div></li>
-          <li><span class="when">Before</span><div><h3>2D animation and compositing</h3><p>Production work for animation studios including Nsibidi Fables, Penmob and Franken Studio.</p></div></li>
-        </ol>
-        <div class="tools">
-          <div class="grp"><b>Automation + AI</b><div class="chips"><span>n8n</span><span>Zapier</span><span>Google Gemini</span><span>Claude</span><span>OpenAI</span><span>Structured AI output</span><span>Webhooks + APIs</span><span>JavaScript</span></div></div>
-          <div class="grp"><b>CRM + messaging</b><div class="chips"><span>GoHighLevel</span><span>HubSpot</span><span>Salesforce</span><span>ManyChat</span><span>Gmail API</span><span>Email + SMS sequences</span><span>Mailgun</span></div></div>
-          <div class="grp"><b>Data + ops</b><div class="chips"><span>Google Sheets</span><span>Notion</span><span>Data validation</span><span>Activity + error logs</span><span>Stripe</span><span>SPF / DKIM / DMARC</span></div></div>
-          <div class="grp"><b>Compliance</b><div class="chips"><span>CAN-SPAM</span><span>TCPA</span><span>GDPR</span><span>Consent + opt-out flows</span></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band" id="how">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">How it works</span>
-        <h2>From free audit to a fix that runs on its own.</h2>
-      </div>
-      <ol class="how">
-        <li><span class="when">Free · within 1 working day</span><h3>Audit</h3><p>I check your business from the outside on all 14 areas (site, reviews, socials, booking, events) and send you the problems ranked by cost, with proof for each.</p></li>
-        <li><span class="when">Your choice</span><h3>One fix, one price</h3><p>You pick the problem to fix first. You get a fixed price and a plain-English plan before anything starts.</p></li>
-        <li><span class="when">Build</span><h3>Built and tested</h3><p>I build it in your own tools, test the failure paths, and show it working with a real test before it goes live.</p></li>
-        <li><span class="when">Optional</span><h3>Run and improve</h3><p>A monthly plan keeps it running, fixes anything that breaks, and reports what it's doing for you.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Questions</span>
-        <h2>Things people ask before starting.</h2>
-      </div>
-      <div class="faq">
-        <div class="qa"><h3>What does the free audit include?</h3><p>A check of your business against the 14 areas, using what anyone can see from outside: your site, reviews, socials, booking and event pages. You get the top problems, the proof for each and what fixing them involves. No obligation.</p></div>
-        <div class="qa"><h3>How fast will I hear back?</h3><p>Within one working day. Fill in the form and you get an instant confirmation email; your audit follows within one working day.</p></div>
-        <div class="qa"><h3>Which tools do you build in?</h3><p>Usually the ones you already pay for. I build in GoHighLevel, n8n, Zapier, HubSpot, Notion and ManyChat, plus custom code where it's cheaper or more reliable.</p></div>
-        <div class="qa"><h3>Do I need to change my CRM?</h3><p>No. If your CRM is set up badly, I clean it up. I only suggest a new one if your current tool can't do the job.</p></div>
-        <div class="qa"><h3>Will AI send things to my customers without me knowing?</h3><p>Only what you approve. AI messages pass a check before they send, and you can keep any step on "draft only" so you review it first.</p></div>
-        <div class="qa"><h3>Where are you, and when can we talk?</h3><p>I work remotely with clients in the US, UK, Canada and Australia, and I schedule calls in your time zone. Tell me your best time in the form.</p></div>
-        <div class="qa"><h3>Is there a contract?</h3><p>Business fixes have a one-off setup fee, and the monthly plan is optional. Creator plans are monthly with no contract: cancel any time.</p></div>
-        <div class="qa"><h3>Who owns what you build?</h3><p>You do. It lives in your accounts, and you get a written handover explaining how it works.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="founder band">
-    <div class="wrap">
-      <img class="avatar" src="assets/clever-headshot.jpg" alt="Clever Ahonsi" width="120" height="120">
-      <div>
-        <span class="eyebrow">Who you'll work with</span>
-        <h3 style="margin-top:.6rem;font-size:1.6rem;letter-spacing:-.02em">Clever Ahonsi</h3>
-        <p>I run Closar myself, so you deal with me directly from the audit to the handover. I build AI automation and CRM systems, and I run the same systems on my own business before I sell them to anyone. <a href="https://www.linkedin.com/in/ahonsiclever25" target="_blank" rel="noopener">LinkedIn</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="final" id="contact">
-    <div class="wrap">
-      <div>
-        <span class="eyebrow" style="color:#3DBE83">Free audit</span>
-        <h2 style="margin-top:.9rem">See where customers slip away, and the exact fix.</h2>
-        <p class="lede" style="margin-top:1rem">Send your website or profile. I check it on all 14 areas and send back your top problems with proof, at no cost.</p>
-        <ul>
-          <li>Instant confirmation email</li>
-          <li>Your audit within one working day</li>
-          <li>A fixed price only if you want the fix</li>
-          <li>No call needed unless you ask for one</li>
-        </ul>
-      </div>
-      <form class="audit" id="audit" action="https://formsubmit.co/ahonsiclever@gmail.com" method="POST" novalidate>
-        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="Name" autocomplete="name" required></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
-        <div class="field full"><label for="f-site">Website or profile link</label><input id="f-site" name="Website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com or @yourhandle" required></div>
-        <div class="field full"><label for="f-fix">What would you most like fixed?</label><select id="f-fix" name="Wants fixed"><option value="Not sure, audit everything">Not sure, audit everything</option></select></div>
-        <div class="field"><label for="f-tz">Your time zone</label><input id="f-tz" name="Time zone" autocomplete="off"></div>
-        <div class="field"><label for="f-time">Best time to reach you <small>(your time)</small></label><select id="f-time" name="Best time"><option>Any time</option><option>Morning (8am–12pm)</option><option>Afternoon (12–5pm)</option><option>Evening (5–8pm)</option></select></div>
-        <div class="field full"><label for="f-msg">Anything else? <small>(optional)</small></label><textarea id="f-msg" name="Message" placeholder="What's taking your time, or what customers complain about"></textarea></div>
-        <input type="hidden" name="_subject" value="New free audit request · Closar">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_autoresponse" value="Thanks for asking for a free Closar audit. I've got your details and I'll send your audit within one working day. If you want to add anything, just reply to this email. Clever Ahonsi, Closar">
-        <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
-        <div class="status" id="status" role="status" aria-live="polite"></div>
-        <div class="form-foot">
-          <button class="btn btn-primary" type="submit" id="send">Send my free audit request</button>
-          <p>Used only to reply to you. <a href="privacy.html">Privacy</a>. Prefer email? <a href="mailto:ahonsiclever@gmail.com?subject=Free%20audit%20request">ahonsiclever@gmail.com</a></p>
-        </div>
-      </form>
+      <div><h2>Find out what's costing you customers.</h2><p>Free audit on all 14 areas, back within one working day.</p></div>
+      <a class="btn btn-primary" href="contact.html">Get a free audit</a>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem"><a class="wm" href="#top" aria-label="Closar home" style="font-size:1.15rem"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>Closar</a>© 2026 Closar. AI automation, CRM and AI integration.</span>
-    <nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="mailto:ahonsiclever@gmail.com">Email</a><a href="https://www.linkedin.com/in/ahonsiclever25" target="_blank" rel="noopener">LinkedIn</a><span>Remote · US, UK, Canada, Australia</span></nav>
+    <span style="display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem"><a class="wm wm-sm" href="./">CLOSAR</a>© 2026 Closar. AI automation, CRM and AI integration.</span>
+    <nav aria-label="Footer"><a href="work.html">Work</a><a href="services.html">Services</a><a href="creators.html">Creators</a><a href="about.html">About</a><a href="contact.html">Free audit</a><a href="privacy.html">Privacy</a></nav>
   </div>
 </footer>
-
 <dialog class="lb" id="lb" aria-label="Image viewer">
   <img id="lb-img" alt="">
   <p id="lb-cap"></p>
@@ -651,160 +122,6 @@ dialog.lb p{color:#E8EEEA;text-align:center;font-size:.92rem;margin-top:.7rem;pa
   <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Next image">›</button>
   <button class="lb-close" id="lb-close" type="button" aria-label="Close">×</button>
 </dialog>
-
-<script>
-(function(){
-  // The 14 areas, fixes and price ranges from the Closar service plan (9 Nov 2026).
-  var AREAS = [
-    ["Content", "Long gaps between posts, events or launches with little content, only flyers or reposts, dead on other platforms, no captions.", "Repurposing pipeline: one recording becomes 10+ clips, captioned and scheduled.", "$600–1,200", "$300–600"],
-    ["Lead capture", "Bio link goes to the homepage, no form or free offer, “DM for info”, no newsletter signup, ads sending people to a plain page.", "Free offer, opt-in page, contact saved in the CRM, welcome email.", "$500–900", "$150–300"],
-    ["DMs + comments", "“Price?” comments left unanswered, late replies, “check DM” replies that never come.", "Keyword auto-reply that sends a link and tags the person in the CRM.", "$400–800", "$150–300"],
-    ["Response speed", "Forms answered in 24+ hours or never, no auto-reply, a plain Gmail address with no system, “sorry for the late reply” in public.", "Instant AI reply, an alert to you, enquiries routed to the right person.", "$500–1,000", "$150–400"],
-    ["Booking", "“Call to book” only, no online calendar, reviews about no-shows or double bookings, Google Form bookings.", "Online calendar with automatic reminders.", "$400–900", "$150–300"],
-    ["Follow-up", "Sign up and get nothing, or one email. Newsletter not sent for months. Nothing after a webinar or event.", "Automatic email sequence (5–10 emails).", "$600–1,200", "$200–400"],
-    ["Sales", "Prices hidden behind “contact for a quote”, no cart-abandon email, slow quotes written by hand, checkout through DMs or bank transfer.", "Quote and cart follow-up, plus upsell automation.", "$700–1,500", "$200–500"],
-    ["Reviews", "Few reviews for the size of the business, newest review months old, bad reviews with no reply.", "Automatic review requests and AI-drafted replies.", "$400–700", "$150–250"],
-    ["Support", "“No response” reviews, the same questions asked again and again, no FAQ page, public complaints.", "AI support bot trained on your FAQs.", "$800–2,000", "$200–500"],
-    ["Onboarding", "“Didn't get access” reviews, products delivered by hand, no welcome email, contracts sent as PDFs.", "Payment, contract, welcome and access, all automatic.", "$800–1,800", "$200–400"],
-    ["CRM + data", "Repeat customers treated as new, the same promo sent twice, “Hi there” mass emails, wrong names.", "CRM setup or clean-up: tags, segments, pipeline.", "$800–2,500", "$300–800"],
-    ["Hiring pains", "Hiring an admin, VA, social media assistant or customer service rep. “Overwhelmed” posts. The owner doing everything.", "Automate that role's tasks.", "$1,000–2,500", "$300–800"],
-    ["Events", "Tickets sold through DMs or bank transfer, no reminders, no recap content, no list kept for next time, low turnout.", "Tickets into the CRM, reminders, recap content, a list for the next event.", "$700–1,500", "$250–500 per event"],
-    ["Win-back", "Customers never hear from you after buying. No loyalty or referral offer. No “we miss you” message.", "Win-back campaign at 60–90 days, plus a referral offer.", "$400–800", "$150–300"]
-  ];
-  // Stable link for each fix, e.g. #fix-response. Outreach messages link straight to these.
-  var SLUGS = ["content","leads","dms","response","booking","followup","sales","reviews","support","onboarding","crm","hiring","events","winback"];
-  var grid = document.getElementById("svc-grid"), jump = document.getElementById("jump"), fixSel = document.getElementById("f-fix");
-  AREAS.forEach(function(a, i){
-    var id = "fix-" + SLUGS[i];
-    var el = document.createElement("article");
-    el.className = "svc"; el.id = id;
-    el.innerHTML =
-      '<div class="svc-top"><h3></h3><span class="n"></span></div>' +
-      '<p class="signs"><b>Signs</b></p>' +
-      '<p class="fix"><b>The fix</b></p>' +
-      '<div class="price"><span>Setup <strong></strong></span><span>Monthly <strong></strong></span></div>' +
-      '<a class="btn btn-ghost btn-sm pick" href="#contact">Get this fixed</a>';
-    el.querySelector("h3").textContent = a[0];
-    el.querySelector(".n").textContent = (i + 1 < 10 ? "0" : "") + (i + 1);
-    el.querySelector(".signs").appendChild(document.createTextNode(a[1]));
-    el.querySelector(".fix").appendChild(document.createTextNode(a[2]));
-    var st = el.querySelectorAll(".price strong");
-    st[0].textContent = a[3]; st[1].textContent = a[4];
-    el.querySelector(".pick").setAttribute("data-pick", a[0]);
-    grid.appendChild(el);
-    var j = document.createElement("a"); j.href = "#" + id; j.textContent = a[0]; jump.appendChild(j);
-    var o = document.createElement("option"); o.value = a[0]; o.textContent = a[0]; fixSel.appendChild(o);
-  });
-  ["Creator plan: Starter","Creator plan: Consistent","Creator plan: Pro","Creator: one-off 30 clips"].forEach(function(v){
-    var o = document.createElement("option"); o.value = v; o.textContent = v; fixSel.appendChild(o);
-  });
-  document.addEventListener("click", function(e){
-    var p = e.target.closest && e.target.closest(".pick");
-    if (p && p.getAttribute("data-pick")) fixSel.value = p.getAttribute("data-pick");
-  });
-
-  // Form: time zone guessed from the browser; sent by AJAX with an instant auto-reply, falls back to a normal post.
-  var tz = document.getElementById("f-tz");
-  try { tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (err) {}
-  var form = document.getElementById("audit"), status = document.getElementById("status"), send = document.getElementById("send");
-  function say(cls, msg){ status.className = "status " + cls; status.textContent = msg; }
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    if (form._honey && form._honey.value) return;
-    var site = document.getElementById("f-site");
-    if (!form.checkValidity()){
-      var bad = form.querySelector(":invalid"); if (bad) bad.focus();
-      say("err", "Please add your name, a valid email and your website or profile link.");
-      return;
-    }
-    send.disabled = true; send.textContent = "Sending…";
-    var data = {};
-    new FormData(form).forEach(function(v, k){ data[k] = v; });
-    data["Page"] = location.href;
-    fetch("https://formsubmit.co/ajax/ahonsiclever@gmail.com", {method:"POST", headers:{"Content-Type":"application/json", "Accept":"application/json"}, body:JSON.stringify(data)})
-      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ if (!r.ok || String(j.success) === "false") throw new Error(j.message || "send failed"); }); })
-      .then(function(){
-        form.reset(); try { tz.value = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (err) {}
-        say("ok", "Got it. A confirmation email is on its way, and your audit follows within one working day.");
-        send.textContent = "Sent";
-      })
-      .catch(function(){
-        var body = "Name: " + data.Name + "\nWebsite: " + data.Website + "\nWants fixed: " + data["Wants fixed"] + "\nTime zone: " + data["Time zone"] + "\nBest time: " + data["Best time"] + "\n\n" + (data.Message || "");
-        say("err", "That didn't send. Your email app will open with everything filled in instead.");
-        location.href = "mailto:ahonsiclever@gmail.com?subject=" + encodeURIComponent("Free audit request") + "&body=" + encodeURIComponent(body);
-        send.disabled = false; send.textContent = "Send my free audit request";
-      });
-  });
-
-  // Intro video: plays with sound on click.
-  var reel = document.getElementById("reel"), rv = document.getElementById("reel-video");
-  document.getElementById("reel-play").addEventListener("click", function(){
-    rv.controls = true; reel.classList.add("playing"); rv.play();
-  });
-
-  // Lightbox for the build files.
-  var lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
-  var thumbs = Array.prototype.slice.call(document.querySelectorAll(".thumb[data-full]")), cur = 0;
-  function show(k){
-    cur = (k + thumbs.length) % thumbs.length;
-    var t = thumbs[cur];
-    lbImg.src = t.getAttribute("data-full"); lbImg.alt = t.querySelector("img").alt; lbCap.textContent = t.getAttribute("data-cap") || "";
-  }
-  thumbs.forEach(function(t, k){ t.addEventListener("click", function(){ show(k); if (lb.showModal) lb.showModal(); else window.open(t.getAttribute("data-full")); }); });
-  document.getElementById("lb-prev").addEventListener("click", function(){ show(cur - 1); });
-  document.getElementById("lb-next").addEventListener("click", function(){ show(cur + 1); });
-  document.getElementById("lb-close").addEventListener("click", function(){ lb.close(); });
-  lb.addEventListener("click", function(e){ if (e.target === lb) lb.close(); });
-  lb.addEventListener("keydown", function(e){ if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1); });
-
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // Media Chic clips: play muted while on screen, tap to hear.
-  var vids = Array.prototype.slice.call(document.querySelectorAll("video.auto"));
-  vids.forEach(function(v){
-    v.addEventListener("click", function(){ v.muted = !v.muted; if (v.paused) v.play(); });
-  });
-  if ("IntersectionObserver" in window && !reduce){
-    var vio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function(){}); } else e.target.pause(); });
-    }, { threshold: .4 });
-    vids.forEach(function(v){ vio.observe(v); });
-  } else vids.forEach(function(v){ v.controls = true; });
-
-  var hdr = document.getElementById("hdr");
-  function onScroll(){ hdr.classList.toggle("scrolled", window.scrollY > 4); }
-  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
-  if ("IntersectionObserver" in window){
-    var links = {};
-    document.querySelectorAll("nav.links a").forEach(function(a){ links[a.getAttribute("href").slice(1)] = a; });
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (!e.isIntersecting || !links[e.target.id]) return;
-        Object.keys(links).forEach(function(k){ links[k].removeAttribute("aria-current"); });
-        links[e.target.id].setAttribute("aria-current", "true");
-      });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    Object.keys(links).forEach(function(id){ var s = document.getElementById(id); if (s) io.observe(s); });
-  }
-
-  // A fix opened from an outreach link (#fix-...) gets scrolled into view once the cards exist.
-  if (/^#fix-/.test(location.hash)){ var tgt = document.getElementById(location.hash.slice(1)); if (tgt) setTimeout(function(){ tgt.scrollIntoView(); }, 50); }
-
-  // Example system card: the enquiry lights up one step at a time, then starts over.
-  var steps = Array.prototype.slice.call(document.querySelectorAll("#steps .step"));
-  var clock = document.getElementById("sys-clock");
-  if (reduce){ steps.forEach(function(s){ s.classList.add("on"); }); return; }
-  var i = -1, timer = null;
-  function tick(){
-    i = (i + 1) % (steps.length + 2);
-    steps.forEach(function(s, k){ s.classList.toggle("on", k <= i && i < steps.length); s.classList.toggle("now", k === i); });
-    if (i < steps.length) clock.textContent = steps[i].querySelector(".t").textContent;
-  }
-  function start(){ if (!timer) { tick(); timer = setInterval(tick, 1100); } }
-  function stop(){ clearInterval(timer); timer = null; }
-  document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
-  start();
-})();
-</script>
+<script src="assets/site.js"></script>
 </body>
 </html>

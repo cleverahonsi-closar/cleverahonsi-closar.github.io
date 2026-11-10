@@ -6,7 +6,7 @@ brand: Closar
 about: ""          # one or two plain lines about you, in your own words
 
 business:
-  links:           # the site link gets #fix-<main problem> added automatically, e.g. /#fix-booking
+  links:           # the site link gets services.html#fix-<main problem> added automatically
     - {label: "Closar", url: "https://cleverahonsi-closar.github.io/"}
   facts:           # check them
     - "Built a ballet ticket sales engine for a ballet conservatory with n8n + Gemini"
@@ -16,7 +16,7 @@ business:
     - "B.Sc. Statistics, University of Benin (2019-2022)"
 
 creator:
-  links:           # gets #creators added automatically
+  links:           # gets creators.html added automatically
     - {label: "Closar", url: "https://cleverahonsi-closar.github.io/"}
   facts:
     - "Runs content farms: ideas, scripts and scheduled posting for several pages"
