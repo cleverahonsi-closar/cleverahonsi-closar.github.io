@@ -6,7 +6,8 @@ brand: Closar
 about: ""          # one or two plain lines about you, in your own words
 
 business:
-  links: []        # - {label: "Closar portfolio", url: "https://..."}  (add when the site is live)
+  links:           # the site link gets #fix-<main problem> added automatically, e.g. /#fix-booking
+    - {label: "Closar", url: "https://cleverahonsi-closar.github.io/"}
   facts:           # check them
     - "Built a ballet ticket sales engine for a ballet conservatory with n8n + Gemini"
     - "Kept on as their automation contractor: 9 systems in one month, plus a GoHighLevel intake and an email deliverability (DNS) fix"
@@ -15,7 +16,8 @@ business:
     - "B.Sc. Statistics, University of Benin (2019-2022)"
 
 creator:
-  links: []
+  links:           # gets #creators added automatically
+    - {label: "Closar", url: "https://cleverahonsi-closar.github.io/"}
   facts:
     - "Runs content farms: ideas, scripts and scheduled posting for several pages"
     - "Built a crosspost system: one post is rewritten by AI for each network and posted to TikTok, Instagram and YouTube automatically"
