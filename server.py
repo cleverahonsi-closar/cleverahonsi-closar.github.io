@@ -23,7 +23,7 @@ if sys.stdout is None:  # started with pythonw (no console)
 import uvicorn  # noqa: E402
 import yaml  # noqa: E402
 from fastapi import Body, FastAPI, HTTPException, Request  # noqa: E402
-from fastapi.responses import FileResponse, Response  # noqa: E402
+from fastapi.responses import FileResponse, RedirectResponse, Response  # noqa: E402
 from fastapi.staticfiles import StaticFiles  # noqa: E402
 
 import audit  # noqa: E402
@@ -54,6 +54,16 @@ def site():
 @app.get("/privacy.html")
 def privacy():
     return FileResponse(ROOT / "site" / "privacy.html")
+
+
+@app.get("/creators")
+def creators_redirect():
+    return RedirectResponse("/creators/")
+
+
+@app.get("/creators/")
+def creators():   # the creator landing page (cold emails to creators link here)
+    return FileResponse(ROOT / "site" / "creators" / "index.html", headers={"Cache-Control": "no-store"})
 
 
 # ---------- studio ----------

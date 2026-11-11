@@ -16,8 +16,8 @@ business:
     - "B.Sc. Statistics, University of Benin (2019-2022)"
 
 creator:
-  links:           # landing page link
-    - {label: "Closar", url: "https://cleverahonsi-closar.github.io/"}
+  links:           # the creators landing page (separate page on the same site)
+    - {label: "Closar for creators", url: "https://cleverahonsi-closar.github.io/creators/"}
   facts:
     - "Runs content farms: ideas, scripts and scheduled posting for several pages"
     - "Built a crosspost system: one post is rewritten by AI for each network and posted to TikTok, Instagram and YouTube automatically"
