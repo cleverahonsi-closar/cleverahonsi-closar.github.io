@@ -431,7 +431,7 @@ def message(c, kind, ranked):
         hi = f"{c['name']} team" if c.get("name") else "there"
     lines = [f"Hi {hi},", "",
              a["hook"].format(evidence=ev) + " " + a["cost"], "",
-             a["fix_line"] + f" Here's one I've built: {link}"]
+             a["fix_line"] + f" See how it works: {link}"]   # the link is the landing page, not a portfolio piece
     # Say what was actually seen (the sign's evidence), never the area's generic line, which can claim unseen things.
     also = [next((s["evidence"] for s in r["signs"] if s.get("evidence")), "") or amap[r["area"]]["also"]
             for r in ranked[1:4]]

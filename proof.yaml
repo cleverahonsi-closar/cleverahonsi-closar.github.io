@@ -37,13 +37,13 @@ email_footer: |
 templates:
   reply: |
     Hi {first}, I can help with this. {pitch} {offer}
-    My work: {link}
+    How it works: {link}
     Send me the details and I'll tell you how I'd handle it and what it would cost.
 
     Clever
   dm: |
     Hi {first}, I saw {seen}. {offer} {pitch}
-    My work: {link}
+    How it works: {link}
     Would some help with {topic} be useful right now?
 
     Clever
